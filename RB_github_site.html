@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AITalent LabRB | Rosy Bhullar</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121933;
+      --panel-2: #182247;
+      --text: #edf2ff;
+      --muted: #a9b4d0;
+      --accent: #7aa2ff;
+      --accent-2: #67e8f9;
+      --border: rgba(255,255,255,0.08);
+      --shadow: 0 18px 45px rgba(0,0,0,0.28);
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(122,162,255,0.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(103,232,249,0.12), transparent 24%),
+        linear-gradient(180deg, #0a0f1f 0%, #0d1327 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(10, 15, 31, 0.72);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      gap: 16px;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      font-size: 1rem;
+    }
+
+    .brand span { color: var(--accent-2); }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      padding: 88px 0 56px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero-card, .panel {
+      background: linear-gradient(180deg, rgba(24,34,71,0.95), rgba(18,25,51,0.95));
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 38px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: rgba(122,162,255,0.12);
+      border: 1px solid rgba(122,162,255,0.22);
+      border-radius: 999px;
+      color: #cfe0ff;
+      font-size: 0.88rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(2.2rem, 5vw, 4.3rem);
+      line-height: 1.02;
+      letter-spacing: -1.5px;
+    }
+
+    .lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 680px;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 18px;
+      border-radius: 14px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      transition: 0.2s ease;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #07111f;
+      border: none;
+    }
+
+    .btn.secondary {
+      background: rgba(255,255,255,0.02);
+      color: var(--text);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      padding: 22px;
+    }
+
+    .stat {
+      padding: 22px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+    }
+
+    .stat-number {
+      font-size: 1.9rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    section {
+      padding: 22px 0;
+    }
+
+    .section-title {
+      font-size: 1.9rem;
+      margin: 0 0 8px;
+      letter-spacing: -0.7px;
+    }
+
+    .section-subtitle {
+      margin: 0 0 22px;
+      color: var(--muted);
+      max-width: 760px;
+    }
+
+    .grid-3, .grid-2 {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.08rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.97rem;
+    }
+
+    ul.clean {
+      margin: 14px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    ul.clean li + li { margin-top: 8px; }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(122,162,255,0.12);
+      border: 1px solid rgba(122,162,255,0.24);
+      color: #dce7ff;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 16px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 18px;
+      padding: 18px 20px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .timeline-label {
+      color: var(--accent-2);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .timeline-item h4 {
+      margin: 0 0 6px;
+      font-size: 1.02rem;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .contact {
+      margin: 28px 0 72px;
+      padding: 30px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(122,162,255,0.14), rgba(103,232,249,0.10));
+      border: 1px solid rgba(255,255,255,0.09);
+      box-shadow: var(--shadow);
+    }
+
+    .contact h2 {
+      margin: 0 0 10px;
+      font-size: 1.8rem;
+    }
+
+    .contact p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      max-width: 780px;
+    }
+
+    footer {
+      padding: 26px 0 42px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    @media (max-width: 950px) {
+      .hero-grid,
+      .grid-3,
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-card { padding: 26px; }
+      .stats { grid-template-columns: 1fr; }
+      .nav-inner { align-items: flex-start; flex-direction: column; }
+      .nav-links { gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand">AITalent <span>LabRB</span></div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#focus">Focus Areas</a>
+        <a href="#insights">Talent Insights</a>
+        <a href="#roles">Open Roles</a>
+        <a href="#connect">Connect</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container hero-grid">
+      <div class="hero-card">
+        <div class="eyebrow">AITalent LabRB • AI/ML Talent Strategy • Builder-Minded Recruiting</div>
+        <h1>AITalent LabRB — where AI talent strategy meets technical insight.</h1>
+        <p class="lead">
+          I build AI/ML talent strategy through market intelligence, technical recruiting, and a builder-minded approach to hiring. My focus is on connecting exceptional engineers, researchers, and AI leaders with opportunities where they can drive meaningful innovation.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="https://www.linkedin.com" target="_blank" rel="noreferrer">Connect with Rosy</a>
+          <a class="btn secondary" href="https://github.com" target="_blank" rel="noreferrer">Explore LabRB</a>
+        </div>
+      </div>
+
+      <aside class="panel stats">
+        <div class="stat">
+          <div class="stat-number">AI/ML</div>
+          <div class="stat-label">Primary recruiting focus across engineering, research, and product-aligned technical talent.</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">LLMs</div>
+          <div class="stat-label">Focused on evolving skill signals across GenAI, agentic systems, and context engineering.</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">Market</div>
+          <div class="stat-label">Tracking emerging role archetypes, talent hotspots, and competitive hiring signals.</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">Builders</div>
+          <div class="stat-label">Interested in people who ship, experiment, learn fast, and care about practical AI systems.</div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="about">
+      <h2 class="section-title">About AITalent LabRB</h2>
+      <p class="section-subtitle">
+        I am Rosy Bhullar, an AI/ML talent leader focused on how technical hiring is evolving across LLM platforms, AI infrastructure, agentic systems, and applied AI. I built AITalent LabRB as a space to share market perspective, talent signals, and a more credible bridge between engineers, hiring leaders, and recruiting strategy.
+      </p>
+      <div class="grid-3">
+        <div class="card">
+          <h3>What I Recruit For</h3>
+          <p>Applied AI, ML engineering, LLM engineering, AI platform, MLOps, infrastructure, and highly technical product-aligned roles.</p>
+        </div>
+        <div class="card">
+          <h3>What I Care About</h3>
+          <p>Signal over hype, technical depth over buzzwords, and strong alignment between candidate strengths and team needs.</p>
+        </div>
+        <div class="card">
+          <h3>How I Work</h3>
+          <p>Through clear communication, strong market context, and a recruiting approach that respects the craft of engineering.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="focus">
+      <h2 class="section-title">Core Focus Areas</h2>
+      <p class="section-subtitle">
+        These are the areas I am spending the most time learning, hiring, and building fluency in.
+      </p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Technical Domains</h3>
+          <div class="pill-row">
+            <span class="pill">LLM Engineering</span>
+            <span class="pill">Agentic AI</span>
+            <span class="pill">MLOps</span>
+            <span class="pill">AI Infrastructure</span>
+            <span class="pill">Context Engineering</span>
+            <span class="pill">Applied Research</span>
+            <span class="pill">RAG Systems</span>
+            <span class="pill">AI Governance</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>What I’m Learning</h3>
+          <ul class="clean">
+            <li>How AI-native teams are redefining software engineering workflows</li>
+            <li>What separates production-ready LLM systems from prototype demos</li>
+            <li>How top AI talent evaluates mission, technical quality, and career upside</li>
+            <li>How technical recruiting can evolve with stronger market intelligence and better tooling</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="insights">
+      <h2 class="section-title">AI Talent Intelligence</h2>
+      <p class="section-subtitle">
+        A recruiter’s lens on the role patterns and skill shifts shaping today’s AI hiring market.
+      </p>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Emerging Role Archetypes</h3>
+          <ul class="clean">
+            <li>LLM platform engineers</li>
+            <li>Agentic AI application builders</li>
+            <li>AI infrastructure and systems engineers</li>
+            <li>Context and retrieval specialists</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Skills That Keep Showing Up</h3>
+          <ul class="clean">
+            <li>Python and production-grade backend engineering</li>
+            <li>RAG, orchestration, and evaluation workflows</li>
+            <li>Distributed systems and platform reliability</li>
+            <li>Experimentation mindset with strong product intuition</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>What Strong Candidates Signal</h3>
+          <ul class="clean">
+            <li>They can move from idea to shipped system</li>
+            <li>They understand tradeoffs, not just frameworks</li>
+            <li>They care about reliability, scalability, and impact</li>
+            <li>They learn publicly through projects, writing, or open-source work</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="roles">
+      <h2 class="section-title">Priority Talent Profiles</h2>
+      <p class="section-subtitle">
+        A sample of the profiles I am most interested in connecting with. You can swap these for your actual openings anytime.
+      </p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-label">Role 01</div>
+          <div>
+            <h4>Senior AI/ML Engineer</h4>
+            <p>Engineers building production ML and GenAI systems with strong backend, deployment, and model integration experience.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-label">Role 02</div>
+          <div>
+            <h4>LLM Engineer</h4>
+            <p>Builders working on orchestration, retrieval, evaluation, prompt systems, and the end-to-end lifecycle of LLM products.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-label">Role 03</div>
+          <div>
+            <h4>AI Infrastructure Engineer</h4>
+            <p>Platform-minded engineers focused on scalable model serving, observability, performance, and AI-native developer tooling.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-label">Role 04</div>
+          <div>
+            <h4>Applied AI / Research Talent</h4>
+            <p>Technical experts bridging experimentation and production with strong intuition around model behavior, metrics, and real-world use cases.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="connect">
+      <h2>Connect with AITalent LabRB</h2>
+      <p>
+        If you are an AI engineer, researcher, technical leader, or hiring stakeholder working across LLMs, agentic systems, infrastructure, or applied AI, I’d love to connect. I’m especially interested in conversations around technical talent strategy, market shifts, and how strong AI teams are being built.
+      </p>
+      <div class="cta-row">
+        <a class="btn primary" href="mailto:your.email@example.com">Email Me</a>
+        <a class="btn secondary" href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
+      </div>
+    </section>
+
+    <footer>
+      Built by Rosy Bhullar • AITalent LabRB • Update links, role titles, and contact details before publishing.
+    </footer>
+  </main>
+</body>
+</html>
