@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recruiting Operations — Process Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #0B1F33;
+    --ink-2: #10263F;
+    --ink-3: #17324F;
+    --paper: #F3F1EA;
+    --paper-2: #E9E5D8;
+    --cyan: #7FD8E8;
+    --cyan-dim: #3E6E7D;
+    --brass: #CC9A3D;
+    --charcoal: #1C2024;
+    --white: #F7F8FA;
+    --line: rgba(127,216,232,0.35);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'IBM Plex Sans', sans-serif;
+    background:var(--paper);
+    color:var(--charcoal);
+    line-height:1.55;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; font-weight:600; letter-spacing:-0.01em;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:
+      linear-gradient(180deg, var(--ink) 0%, var(--ink) 85%, var(--ink-2) 100%);
+    color:var(--white);
+    padding:88px 8vw 96px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity:0.25;
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--cyan);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{content:"◇"; font-size:11px;}
+  .hero h1{
+    position:relative;
+    font-size:clamp(34px, 5.2vw, 62px);
+    line-height:1.05;
+    max-width:920px;
+    margin-bottom:22px;
+  }
+  .hero h1 em{font-style:normal; color:var(--cyan);}
+  .hero p.lede{
+    position:relative;
+    font-size:clamp(15px,1.6vw,18px);
+    max-width:640px;
+    color:#C9D3DC;
+    margin-bottom:40px;
+  }
+  .hero-meta{
+    position:relative;
+    display:flex; flex-wrap:wrap; gap:0;
+    border-top:1px solid rgba(127,216,232,0.3);
+    max-width:920px;
+  }
+  .hero-meta div{
+    flex:1 1 160px;
+    padding:18px 22px 0 0;
+    border-right:1px solid rgba(127,216,232,0.2);
+  }
+  .hero-meta div:last-child{border-right:none;}
+  .hero-meta .num{font-family:'Space Grotesk'; font-size:26px; color:var(--brass); font-weight:600;}
+  .hero-meta .lab{font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:#93A3B0; margin-top:4px;}
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  section.proj{
+    padding:72px 8vw;
+    border-bottom:1px solid var(--paper-2);
+  }
+  section.proj:nth-of-type(even){background:var(--paper-2);}
+  .proj-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    flex-wrap:wrap; gap:16px;
+    margin-bottom:28px;
+    border-bottom:2px solid var(--charcoal);
+    padding-bottom:16px;
+  }
+  .tag{
+    font-family:'IBM Plex Mono'; font-size:12px; letter-spacing:0.1em;
+    color:var(--cyan-dim); text-transform:uppercase;
+  }
+  .proj-head h2{font-size:clamp(24px,3vw,34px);}
+  .grid{
+    display:grid; grid-template-columns: 1.05fr 0.95fr; gap:52px; align-items:start;
+  }
+  @media (max-width: 880px){ .grid{grid-template-columns:1fr;} }
+  .proj p{margin-bottom:14px; max-width:56ch; font-size:15.5px;}
+  .diagram-wrap{
+    background:var(--ink);
+    border-radius:4px;
+    padding:22px;
+    position:relative;
+  }
+  .diagram-wrap svg{width:100%; height:auto; display:block;}
+  .fig-label{
+    font-family:'IBM Plex Mono'; font-size:11px; color:var(--cyan);
+    letter-spacing:0.08em; margin-top:10px; text-transform:uppercase;
+  }
+  .impact{
+    margin-top:22px;
+    border-left:3px solid var(--brass);
+    padding:6px 0 6px 16px;
+  }
+  .impact .lab{font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:#7A6A3E; display:block; margin-bottom:4px;}
+  .impact p{margin:0; font-size:14.5px; max-width:52ch;}
+
+  /* ---------- FLAGSHIP ---------- */
+  .flagship{
+    background:var(--ink);
+    color:var(--white);
+    padding:76px 8vw 84px;
+    position:relative;
+  }
+  .flagship .tag{color:var(--cyan);}
+  .flagship h2{color:var(--white); font-size:clamp(26px,3.4vw,38px); margin:10px 0 16px;}
+  .flagship p.intro{max-width:78ch; color:#C9D3DC; font-size:15.5px; margin-bottom:36px;}
+  .pillars{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:1px; background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.14);
+    margin-bottom:36px;
+  }
+  .pillar{background:var(--ink-2); padding:24px 24px 22px;}
+  .pillar .p-num{font-family:'IBM Plex Mono'; color:var(--brass); font-size:13px; margin-bottom:8px;}
+  .pillar h3{font-size:17px; margin-bottom:10px;}
+  .pillar p{font-size:13.5px; color:#C9D3DC; margin-bottom:14px;}
+  .pillar .p-stat{
+    font-family:'IBM Plex Mono'; font-size:11.5px; color:var(--cyan);
+    border-top:1px solid rgba(127,216,232,0.25); padding-top:10px;
+  }
+  .flagship-diag{max-width:720px;}
+  .flagship-diag .fig-label{color:var(--cyan);}
+
+  /* ---------- ROADMAP ---------- */
+  .roadmap{
+    padding:72px 8vw 96px;
+    background:var(--ink);
+    color:var(--white);
+  }
+  .roadmap h2{color:var(--white); font-size:clamp(24px,3vw,32px); margin-bottom:10px;}
+  .roadmap .tag{color:var(--cyan);}
+  .roadmap p.intro{max-width:60ch; color:#C9D3DC; margin:14px 0 32px; font-size:15px;}
+  .rmap-list{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:1px; background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.12);
+  }
+  .rmap-item{
+    background:var(--ink-2); padding:18px 20px;
+  }
+  .rmap-item .n{font-family:'IBM Plex Mono'; color:var(--brass); font-size:12px;}
+  .rmap-item .t{font-family:'Space Grotesk'; font-size:15px; margin:6px 0 4px;}
+  .rmap-item .v{font-size:12.5px; color:#93A3B0;}
+
+  footer{
+    padding:40px 8vw 56px; background:var(--paper);
+    font-family:'IBM Plex Mono'; font-size:12px; color:#7A7568;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+  a{color:inherit;}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">Talent AI Lab — Field Notes</div>
+  <h1>Recruiting Operations,<br><em>built like systems</em>, not one-offs.</h1>
+  <p class="lede">A working record of rebuilding a global AI/ML talent attraction function — plus the internal mobility, onboarding, referral, sourcing compliance, interview design, and enablement programs underneath it.</p>
+  <div class="hero-meta">
+    <div><div class="num">22→59%</div><div class="lab">Event-to-applicant conversion</div></div>
+    <div><div class="num">75%</div><div class="lab">Time-to-fill reduction</div></div>
+    <div><div class="num">97.94%</div><div class="lab">Process adherence</div></div>
+    <div><div class="num">7</div><div class="lab">Supporting programs below</div></div>
+  </div>
+</header>
+
+<!-- FLAGSHIP CASE STUDY -->
+<section class="flagship">
+  <span class="tag">Flagship — Function Redesign</span>
+  <h2>Rebuilding Global AI/ML Talent Attraction</h2>
+  <p class="intro">The organization was active, but the activity wasn't aligned with business demand: heavy reliance on inbound and agency pipelines, conference investment measured by attendance and resume volume instead of qualified yield, limited visibility into where representation dropped across the funnel, and time-to-fill that swung widely across ML engineering, research science, MLOps, SRE, and AI infrastructure. What the function needed wasn't more recruiting activity — it needed an architecture connecting talent demand, attraction channels, recruiter execution, data, inclusion, and business outcomes. Rebuilt around four areas:</p>
+
+  <div class="pillars">
+    <div class="pillar">
+      <div class="p-num">01</div>
+      <h3>Conference Ecosystem Design</h3>
+      <p>Segmented conferences by talent community — research, applied ML, and smaller technical circles like MLOps, SRE, and distributed systems — and pre-identified researchers, accepted-paper authors, and community leaders before each event, so conversations were scheduled, not left to booth traffic. Partnered with ERGs to embed inclusion directly into the engagement strategy, not as a bolt-on. Added intake calibration, structured lead tagging, clear recruiter ownership, and a 48-hour follow-up standard.</p>
+      <div class="p-stat">22% → 59% event-to-applicant conversion</div>
+    </div>
+    <div class="pillar">
+      <div class="p-num">02</div>
+      <h3>Funnel Diagnostics &amp; Source-Mix Health</h3>
+      <p>Built dashboards tracking qualified conversion by source, representation by stage, candidate velocity, and yield by domain. Found a marquee AI conference converting resumes at ~12% qualified, while a smaller specialized ML community converted near 40% — evidence that changed how leadership thought about "big" versus "right," and redirected budget by skill domain.</p>
+      <div class="p-stat">12% vs. ~40% qualified conversion, by source</div>
+    </div>
+    <div class="pillar">
+      <div class="p-num">03</div>
+      <h3>Responsible AI-Enabled Sourcing</h3>
+      <p>Piloted market-mapping and screening tools to sharpen signal in competitive AI talent markets — deliberately without scaling automation ahead of governance. Reviewed pass-through rates across candidate groups, checked keyword logic and institutional preferences for unintended bias, required human validation before priority-pipeline placement, and benchmarked tool output against interview scorecards and hiring outcomes.</p>
+      <div class="p-stat">Augmentation with human accountability, not automation for its own sake</div>
+    </div>
+    <div class="pillar">
+      <div class="p-num">04</div>
+      <h3>Operating Discipline &amp; Accountability</h3>
+      <p>Leading a global team of 10, established program ownership, common success measures, portfolio reviews, and escalation paths — and coached the team to report the business problem, hypothesis, data, and outcome, instead of activity counts alone.</p>
+      <div class="p-stat">97.94% process adherence</div>
+    </div>
+  </div>
+
+  <div class="diagram-wrap flagship-diag">
+    <svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg">
+      <text x="20" y="22" fill="#3E6E7D" font-family="IBM Plex Mono" font-size="9">SOURCE-MIX DIAGNOSTIC — QUALIFIED CONVERSION</text>
+      <g font-family="IBM Plex Mono" font-size="11" fill="#F7F8FA">
+        <rect x="60" y="150" width="140" height="40" fill="none" stroke="#3E6E7D" stroke-width="1.2"/>
+        <rect x="60" y="167" width="140" height="23" fill="#3E6E7D" opacity="0.55"/>
+        <text x="130" y="140" text-anchor="middle" fill="#93A3B0">~12% qualified</text>
+        <text x="130" y="205" text-anchor="middle" fill="#93A3B0">Marquee AI conference (high volume)</text>
+
+        <rect x="420" y="150" width="140" height="40" fill="none" stroke="#CC9A3D" stroke-width="1.4"/>
+        <rect x="420" y="87" width="140" height="103" fill="#CC9A3D" opacity="0.55"/>
+        <text x="490" y="77" text-anchor="middle" fill="#CC9A3D" font-weight="600">~40% qualified</text>
+        <text x="490" y="205" text-anchor="middle" fill="#F7F8FA">Specialized ML community (niche)</text>
+      </g>
+      <line x1="40" y1="190" x2="660" y2="190" stroke="#7FD8E8" stroke-width="1.2"/>
+    </svg>
+    <div class="fig-label">Fig. 00 — Volume vs. qualified yield across sourcing channels</div>
+  </div>
+</section>
+
+<!-- 01 RECRUITING COP -->
+<section class="proj">
+  <div class="proj-head">
+    <span class="tag">Fig. 01 — Enablement Layer</span>
+    <h2>Recruiting CoP: SharePoint + Copilot Hub</h2>
+  </div>
+
+<!-- 01 RECRUITING COP -->
+<section class="proj">
+  <div class="proj-head">
+    <span class="tag">Fig. 01 — Enablement Layer</span>
+    <h2>Recruiting CoP: SharePoint + Copilot Hub</h2>
+  </div>
+  <div class="grid">
+    <div>
+      <p>The recruiting community had no single, current source of truth spanning the hiring lifecycle. Built a SharePoint intranet hub structured around the eight phases of the recruiting lifecycle, then layered Copilot on top so updates and announcements reach the community fast — instead of sitting in email threads or scattered decks.</p>
+      <p>Rolled out as a hub-and-spoke model, with regional spokes for NAMR, EMEA, and APAC feeding from — and back into — the central hub, so regional teams get locally relevant content without fragmenting the source of truth.</p>
+      <div class="impact">
+        <span class="lab">Why it matters</span>
+        <p>One governed hub instead of three disconnected regional processes; Copilot cuts the lag between "this changed" and "the field knows."</p>
+      </div>
+    </div>
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 480 340" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="240" cy="150" r="54" fill="none" stroke="#7FD8E8" stroke-width="1.6"/>
+        <text x="240" y="145" text-anchor="middle" fill="#F7F8FA" font-family="Space Grotesk" font-size="14" font-weight="600">Recruiting</text>
+        <text x="240" y="163" text-anchor="middle" fill="#F7F8FA" font-family="Space Grotesk" font-size="14" font-weight="600">CoP Hub</text>
+        <text x="240" y="88" text-anchor="middle" fill="#CC9A3D" font-family="IBM Plex Mono" font-size="10">SHAREPOINT + COPILOT</text>
+
+        <g stroke="#3E6E7D" stroke-width="1.4" stroke-dasharray="4 4">
+          <line x1="196" y1="150" x2="90" y2="80"/>
+          <line x1="240" y1="204" x2="240" y2="290"/>
+          <line x1="284" y1="150" x2="390" y2="80"/>
+        </g>
+
+        <g>
+          <rect x="30" y="45" width="120" height="56" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.2"/>
+          <text x="90" y="68" text-anchor="middle" fill="#F7F8FA" font-family="IBM Plex Mono" font-size="12">NAMR</text>
+          <text x="90" y="84" text-anchor="middle" fill="#93A3B0" font-family="IBM Plex Mono" font-size="9">regional spoke</text>
+        </g>
+        <g>
+          <rect x="330" y="45" width="120" height="56" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.2"/>
+          <text x="390" y="68" text-anchor="middle" fill="#F7F8FA" font-family="IBM Plex Mono" font-size="12">EMEA</text>
+          <text x="390" y="84" text-anchor="middle" fill="#93A3B0" font-family="IBM Plex Mono" font-size="9">regional spoke</text>
+        </g>
+        <g>
+          <rect x="180" y="290" width="120" height="40" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.2"/>
+          <text x="240" y="315" text-anchor="middle" fill="#F7F8FA" font-family="IBM Plex Mono" font-size="12">APAC</text>
+        </g>
+        <text x="20" y="20" fill="#3E6E7D" font-family="IBM Plex Mono" font-size="9">HUB-AND-SPOKE MODEL</text>
+      </svg>
+      <div class="fig-label">Fig. 01 — Hub-and-spoke lifecycle hub, 8 phases, 3 regions</div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 INTERNAL MOBILITY -->
+<section class="proj">
+  <div class="proj-head">
+    <span class="tag">Fig. 02 — Talent Retention</span>
+    <h2>Internal Mobility → AI/ML Pipeline</h2>
+  </div>
+  <div class="grid">
+    <div>
+      <p>As the org shifted toward AI/ML, engineering talent risked being left behind — or leaving. Built a monthly program where a different line-of-business AI/ML leader presents live: what their team is building, what roles are open, and what a strong candidate for those roles actually looks like.</p>
+      <p>Internal employees — largely software engineers exploring an AI/ML move — sign up, attend, and ask questions directly tied to open requisitions: what to work on, what to say in the interview, how to frame their experience.</p>
+      <div class="impact">
+        <span class="lab">Impact</span>
+        <p>Before this program, software engineers had low success moving into AI/ML roles and struggled to position their experience. Since launch, that transition success rate has risen.</p>
+      </div>
+    </div>
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 480 340" xmlns="http://www.w3.org/2000/svg">
+        <text x="20" y="24" fill="#3E6E7D" font-family="IBM Plex Mono" font-size="9">MONTHLY CADENCE</text>
+        <g font-family="IBM Plex Mono" font-size="11" fill="#F7F8FA">
+          <rect x="30" y="55" width="180" height="52" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.2"/>
+          <text x="120" y="86" text-anchor="middle">LOB leader session</text>
+
+          <rect x="270" y="55" width="180" height="52" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.2"/>
+          <text x="360" y="86" text-anchor="middle">Sign-up &amp; attend</text>
+
+          <rect x="270" y="150" width="180" height="52" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.2"/>
+          <text x="360" y="181" text-anchor="middle">Req Q&amp;A / mapping</text>
+
+          <rect x="30" y="150" width="180" height="52" rx="3" fill="none" stroke="#CC9A3D" stroke-width="1.4"/>
+          <text x="120" y="176" text-anchor="middle" fill="#CC9A3D">Internal placement</text>
+          <text x="120" y="192" text-anchor="middle" font-size="9" fill="#93A3B0">into AI/ML role</text>
+        </g>
+        <g stroke="#7FD8E8" stroke-width="1.4" fill="none" marker-end="url(#arrow)">
+          <path d="M210 81 L270 81"/>
+          <path d="M360 107 L360 150"/>
+          <path d="M270 176 L210 176"/>
+        </g>
+        <path d="M120 150 C60 120 60 100 100 81" stroke="#3E6E7D" stroke-width="1.2" fill="none" stroke-dasharray="3 3" marker-end="url(#arrowdim)"/>
+        <text x="30" y="250" fill="#93A3B0" font-family="IBM Plex Mono" font-size="9">repeats monthly, one LOB at a time</text>
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7FD8E8"/></marker>
+          <marker id="arrowdim" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#3E6E7D"/></marker>
+        </defs>
+      </svg>
+      <div class="fig-label">Fig. 02 — Monthly leader session → placement loop</div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 ONBOARDING + PERFORMANCE -->
+<section class="proj">
+  <div class="proj-head">
+    <span class="tag">Fig. 03 — Recruiter Development</span>
+    <h2>Recruiter Onboarding &amp; Performance Program</h2>
+  </div>
+  <div class="grid">
+    <div>
+      <p>Recruiter onboarding had no structured, AI-enabled path — new recruiters learned the job piecemeal. Built a formal onboarding program that incorporates AI tooling from day one, replacing an area that hadn't existed before.</p>
+      <p>Separately, recruiter performance had gone flat: no clear way for recruiters to see how to grow or what "better" looked like. Built a companion program giving recruiters a path to develop and a reason to invest in their own performance.</p>
+      <div class="impact">
+        <span class="lab">Impact</span>
+        <p>In last year's performance reviews, recruiters documented substantially more detail on the side projects they'd taken on to improve their own recruiting — a marked shift from the flat, undifferentiated reviews before the program.</p>
+      </div>
+    </div>
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg">
+        <text x="20" y="24" fill="#3E6E7D" font-family="IBM Plex Mono" font-size="9">PATH + GROWTH LOOP</text>
+        <g font-family="IBM Plex Mono" font-size="11" fill="#F7F8FA">
+          <rect x="20" y="60" width="130" height="50" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.2"/>
+          <text x="85" y="90" text-anchor="middle">AI-enabled onboarding</text>
+
+          <rect x="175" y="60" width="130" height="50" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.2"/>
+          <text x="240" y="90" text-anchor="middle">Active recruiting</text>
+
+          <rect x="330" y="60" width="130" height="50" rx="3" fill="none" stroke="#CC9A3D" stroke-width="1.4"/>
+          <text x="395" y="86" text-anchor="middle" fill="#CC9A3D">Performance</text>
+          <text x="395" y="100" text-anchor="middle" font-size="9" fill="#93A3B0">review, documented growth</text>
+        </g>
+        <g stroke="#7FD8E8" stroke-width="1.4" marker-end="url(#a2)">
+          <path d="M150 85 L175 85" fill="none"/>
+          <path d="M305 85 L330 85" fill="none"/>
+        </g>
+        <path d="M395 110 C395 170 240 190 240 110" stroke="#3E6E7D" stroke-width="1.2" fill="none" stroke-dasharray="3 3" marker-end="url(#a2dim)"/>
+        <text x="240" y="205" text-anchor="middle" fill="#93A3B0" font-family="IBM Plex Mono" font-size="9">growth signal feeds back into recruiting practice</text>
+        <defs>
+          <marker id="a2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7FD8E8"/></marker>
+          <marker id="a2dim" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#3E6E7D"/></marker>
+        </defs>
+      </svg>
+      <div class="fig-label">Fig. 03 — Onboarding into recruiting practice, with a growth feedback loop</div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 REFERRAL -->
+<section class="proj">
+  <div class="proj-head">
+    <span class="tag">Fig. 04 — Pipeline Generation</span>
+    <h2>Referral Program &amp; Career Fair</h2>
+  </div>
+  <div class="grid">
+    <div>
+      <p>Referring wasn't easy — the friction was in "how does the person I know actually get into the system." Redesigned the path around QR codes and minimal-information capture, so a conversation at an event turns into a real candidate record in seconds, not a multi-step internal form.</p>
+      <p>Hosted a referral career fair with live job postings: attendees scan a QR code, give minimal info, and a recruiter follows up on the right open role. Separately, built relationships with recently hired PhD leaders whose university networks — direct lines to professors — extended the pipeline further, including a recent Stanford-tied internship event.</p>
+      <div class="impact">
+        <span class="lab">Why it matters</span>
+        <p>Removes the biggest drop-off point in referrals: effort. Fewer steps between "I know someone great" and a role in front of them.</p>
+      </div>
+    </div>
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg">
+        <text x="20" y="24" fill="#3E6E7D" font-family="IBM Plex Mono" font-size="9">LOW-FRICTION REFERRAL FLOW</text>
+        <g font-family="IBM Plex Mono" font-size="10.5" fill="#F7F8FA">
+          <rect x="20" y="50" width="105" height="50" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.2"/>
+          <text x="72" y="70" text-anchor="middle">Referral /</text>
+          <text x="72" y="84" text-anchor="middle">career fair</text>
+
+          <rect x="160" y="50" width="105" height="50" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.2"/>
+          <text x="212" y="70" text-anchor="middle">QR scan,</text>
+          <text x="212" y="84" text-anchor="middle">minimal info</text>
+
+          <rect x="300" y="50" width="105" height="50" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.2"/>
+          <text x="352" y="70" text-anchor="middle">Recruiter</text>
+          <text x="352" y="84" text-anchor="middle">follow-up</text>
+
+          <rect x="230" y="140" width="150" height="50" rx="3" fill="none" stroke="#CC9A3D" stroke-width="1.4"/>
+          <text x="305" y="160" text-anchor="middle" fill="#CC9A3D">Role match /</text>
+          <text x="305" y="174" text-anchor="middle" fill="#CC9A3D">candidate record</text>
+
+          <rect x="20" y="230" width="180" height="52" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.2"/>
+          <text x="110" y="252" text-anchor="middle">PhD leaders' university</text>
+          <text x="110" y="266" text-anchor="middle">networks (e.g. Stanford)</text>
+        </g>
+        <g stroke="#7FD8E8" stroke-width="1.4" marker-end="url(#a3)" fill="none">
+          <path d="M125 75 L160 75"/>
+          <path d="M265 75 L300 75"/>
+          <path d="M352 100 L352 120 L305 120 L305 140"/>
+        </g>
+        <path d="M200 230 L280 190" stroke="#3E6E7D" stroke-width="1.2" fill="none" stroke-dasharray="3 3" marker-end="url(#a3dim)"/>
+        <defs>
+          <marker id="a3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7FD8E8"/></marker>
+          <marker id="a3dim" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#3E6E7D"/></marker>
+        </defs>
+      </svg>
+      <div class="fig-label">Fig. 04 — Referral capture, event flow, and academic-network pipeline</div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 LINKEDIN -->
+<section class="proj">
+  <div class="proj-head">
+    <span class="tag">Fig. 05 — Compliant Sourcing</span>
+    <h2>LinkedIn Sourcing, Built Around Compliance</h2>
+  </div>
+  <div class="grid">
+    <div>
+      <p>Working at a highly regulated company means AI cannot be integrated directly with LinkedIn — so the fix had to be procedural, not automated. Built a campaign and a single non-AI tool integration that makes it fast and simple for hiring teams and employees to create a post and ship it, without staring at a blank box wondering what to say.</p>
+      <p>Recruiters receive a quarterly report on their own LinkedIn activity and the projects tied to it. Click-through from LinkedIn to the careers site, and hires attributed back to that traffic, are tracked — because even with heavy passive sourcing, candidates end up checking a LinkedIn profile regardless.</p>
+      <div class="impact">
+        <span class="lab">Why it matters</span>
+        <p>Solved for compliance first, then for ease-of-use — proof that sourcing programs don't need AI automation to be effective, just a well-designed process.</p>
+      </div>
+    </div>
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg">
+        <text x="20" y="24" fill="#3E6E7D" font-family="IBM Plex Mono" font-size="9">NO-AI-INTEGRATION CONSTRAINT</text>
+        <g font-family="IBM Plex Mono" font-size="10.5" fill="#F7F8FA">
+          <rect x="20" y="55" width="110" height="48" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.2"/>
+          <text x="75" y="83" text-anchor="middle">Hiring team</text>
+
+          <rect x="165" y="55" width="150" height="48" rx="3" fill="none" stroke="#CC9A3D" stroke-width="1.4"/>
+          <text x="240" y="75" text-anchor="middle" fill="#CC9A3D">Post-creation tool</text>
+          <text x="240" y="89" text-anchor="middle" font-size="9" fill="#93A3B0">(non-AI, compliant)</text>
+
+          <rect x="350" y="55" width="105" height="48" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.2"/>
+          <text x="402" y="83" text-anchor="middle">Publish</text>
+
+          <rect x="350" y="150" width="105" height="48" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.2"/>
+          <text x="402" y="178" text-anchor="middle">Careers site</text>
+
+          <rect x="165" y="150" width="150" height="48" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.2"/>
+          <text x="240" y="170" text-anchor="middle">Click tracked</text>
+          <text x="240" y="184" text-anchor="middle" font-size="9" fill="#93A3B0">source-attributed</text>
+
+          <rect x="20" y="150" width="110" height="48" rx="3" fill="none" stroke="#CC9A3D" stroke-width="1.4"/>
+          <text x="75" y="178" text-anchor="middle" fill="#CC9A3D">Hire attributed</text>
+        </g>
+        <g stroke="#7FD8E8" stroke-width="1.4" fill="none" marker-end="url(#a4)">
+          <path d="M130 79 L165 79"/>
+          <path d="M315 79 L350 79"/>
+          <path d="M402 103 L402 150"/>
+          <path d="M350 174 L315 174"/>
+          <path d="M165 174 L130 174"/>
+        </g>
+        <defs>
+          <marker id="a4" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7FD8E8"/></marker>
+        </defs>
+        <text x="240" y="230" text-anchor="middle" fill="#93A3B0" font-family="IBM Plex Mono" font-size="9">quarterly activity report to each recruiter</text>
+      </svg>
+      <div class="fig-label">Fig. 05 — Compliance-safe post-to-hire tracking loop</div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 INTERVIEW / SUPERDAYS -->
+<section class="proj">
+  <div class="proj-head">
+    <span class="tag">Fig. 06 — Interview Design</span>
+    <h2>Interview Process &amp; "Super Days"</h2>
+  </div>
+  <div class="grid">
+    <div>
+      <p>Built the interview process from the ground up for SRE roles, then extended the same design to AI/ML roles as hiring shifted. The centerpiece was "Super Days" — condensed, high-touch interview events that replaced a slower, more fragmented process, and one of the execution pieces behind the conference ecosystem redesign in the flagship case study above.</p>
+      <div class="impact">
+        <span class="lab">Impact</span>
+        <p>Super Days is part of what drove the 22% → 59% event-to-applicant conversion gain detailed above.</p>
+      </div>
+    </div>
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 480 260" xmlns="http://www.w3.org/2000/svg">
+        <text x="20" y="24" fill="#3E6E7D" font-family="IBM Plex Mono" font-size="9">CONVERSION, BEFORE / AFTER SUPER DAYS</text>
+        <g font-family="IBM Plex Mono" font-size="11" fill="#F7F8FA">
+          <rect x="60" y="180" width="90" height="40" fill="none" stroke="#3E6E7D" stroke-width="1.2"/>
+          <rect x="60" y="150" width="90" height="30" fill="#3E6E7D" opacity="0.5"/>
+          <text x="105" y="140" text-anchor="middle" fill="#93A3B0">22%</text>
+          <text x="105" y="238" text-anchor="middle" fill="#93A3B0">Before</text>
+
+          <rect x="280" y="180" width="90" height="40" fill="none" stroke="#CC9A3D" stroke-width="1.4"/>
+          <rect x="280" y="70" width="90" height="110" fill="#CC9A3D" opacity="0.55"/>
+          <text x="325" y="60" text-anchor="middle" fill="#CC9A3D" font-size="16" font-weight="600">59%</text>
+          <text x="325" y="238" text-anchor="middle" fill="#F7F8FA">After Super Days</text>
+        </g>
+        <line x1="40" y1="220" x2="440" y2="220" stroke="#7FD8E8" stroke-width="1.2"/>
+      </svg>
+      <div class="fig-label">Fig. 06 — Interview-to-outcome conversion, Super Days rollout</div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 LLM COPILOT TRAINING -->
+<section class="proj">
+  <div class="proj-head">
+    <span class="tag">Fig. 07 — Enablement Layer</span>
+    <h2>Recruiting LLM Copilot Training, by Phase</h2>
+  </div>
+  <div class="grid">
+    <div>
+      <p>Recruiters were spending real time just figuring out what to ask the model — reinventing prompts from scratch for every phase of a req. Built a full LLM Copilot training program structured around each phase of the recruiting lifecycle, so the prompt for "sourcing outreach" or "offer negotiation" already exists and just needs the details dropped in.</p>
+      <p>Integrated an HTML output layer on top of the prompt library, so what a recruiter generates and sends — to a hiring manager or directly to a candidate — renders as a polished, formatted document instead of raw model text.</p>
+      <div class="impact">
+        <span class="lab">Why it matters</span>
+        <p>Removes prompt-writing as a skill bottleneck and raises the visual bar on every hiring-manager and candidate touchpoint, without recruiters needing any HTML or prompting expertise themselves.</p>
+      </div>
+    </div>
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg">
+        <text x="20" y="24" fill="#3E6E7D" font-family="IBM Plex Mono" font-size="9">PHASE-MAPPED PROMPT → POLISHED OUTPUT</text>
+        <g font-family="IBM Plex Mono" font-size="10.5" fill="#F7F8FA">
+          <rect x="20" y="55" width="110" height="48" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.2"/>
+          <text x="75" y="76" text-anchor="middle">Recruiting</text>
+          <text x="75" y="90" text-anchor="middle">phase selected</text>
+
+          <rect x="165" y="55" width="150" height="48" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.2"/>
+          <text x="240" y="76" text-anchor="middle">Phase-mapped</text>
+          <text x="240" y="90" text-anchor="middle">prompt library</text>
+
+          <rect x="350" y="55" width="105" height="48" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.2"/>
+          <text x="402" y="76" text-anchor="middle">Copilot</text>
+          <text x="402" y="90" text-anchor="middle">generates</text>
+
+          <rect x="165" y="150" width="150" height="48" rx="3" fill="none" stroke="#CC9A3D" stroke-width="1.4"/>
+          <text x="240" y="171" text-anchor="middle" fill="#CC9A3D">HTML formatting</text>
+          <text x="240" y="185" text-anchor="middle" font-size="9" fill="#93A3B0">layer applied</text>
+
+          <rect x="20" y="150" width="110" height="48" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.2"/>
+          <text x="75" y="171" text-anchor="middle">Hiring manager</text>
+          <text x="75" y="185" text-anchor="middle" font-size="9">receives it</text>
+
+          <rect x="350" y="150" width="105" height="48" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.2"/>
+          <text x="402" y="171" text-anchor="middle">Candidate</text>
+          <text x="402" y="185" text-anchor="middle" font-size="9">receives it</text>
+        </g>
+        <g stroke="#7FD8E8" stroke-width="1.4" fill="none" marker-end="url(#a5)">
+          <path d="M130 79 L165 79"/>
+          <path d="M315 79 L350 79"/>
+          <path d="M402 103 L402 128 L240 128 L240 150"/>
+          <path d="M165 174 L130 174"/>
+          <path d="M315 174 L350 174"/>
+        </g>
+        <defs>
+          <marker id="a5" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7FD8E8"/></marker>
+        </defs>
+        <text x="240" y="230" text-anchor="middle" fill="#93A3B0" font-family="IBM Plex Mono" font-size="9">covers every phase of the recruiting lifecycle</text>
+      </svg>
+      <div class="fig-label">Fig. 07 — Phase-mapped prompt library with an HTML polish layer</div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="roadmap">
+  <span class="tag">What's next</span>
+  <h2>Toward a Recruiting Copilot Center of Excellence</h2>
+  <p class="intro">These programs already cover the Recruiting CoP, recruiter onboarding, AI/ML enablement, LLM prompt training, and hiring-manager-facing toolkits — the pieces a Recruiting Copilot Center of Excellence would sit on top of. This is the roadmap being scoped next, in priority order.</p>
+  <div class="rmap-list">
+    <div class="rmap-item"><div class="n">01</div><div class="t">Executive Briefings</div><div class="v">Saves 30–60 min daily</div></div>
+    <div class="rmap-item"><div class="n">02</div><div class="t">Recruiter Prompt Library</div><div class="v">Already built — see Fig. 07</div></div>
+    <div class="rmap-item"><div class="n">03</div><div class="t">Hiring Manager Communications</div><div class="v">Better stakeholder experience</div></div>
+    <div class="rmap-item"><div class="n">04</div><div class="t">Interview Scheduling Automation</div><div class="v">Saves ops effort</div></div>
+    <div class="rmap-item"><div class="n">05</div><div class="t">Recruiter Onboarding Hub</div><div class="v">Faster ramp-up</div></div>
+    <div class="rmap-item"><div class="n">06</div><div class="t">Recruiting CoP SharePoint Agent</div><div class="v">Self-service support</div></div>
+    <div class="rmap-item"><div class="n">07</div><div class="t">Meeting Summaries &amp; Action Items</div><div class="v">Less admin work</div></div>
+    <div class="rmap-item"><div class="n">08</div><div class="t">Reporting &amp; Analytics Summaries</div><div class="v">Faster insights</div></div>
+    <div class="rmap-item"><div class="n">09</div><div class="t">Candidate Communication Templates</div><div class="v">Better candidate experience</div></div>
+    <div class="rmap-item"><div class="n">10</div><div class="t">AI Training Program Management</div><div class="v">Scalable upskilling</div></div>
+  </div>
+</section>
+
+<footer>
+  <span>Talent AI Lab — Recruiting Operations Field Notes</span>
+  <span>Built &amp; maintained independently</span>
+</footer>
+
+</body>
+</html>
