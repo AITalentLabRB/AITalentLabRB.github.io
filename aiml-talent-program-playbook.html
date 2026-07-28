@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building an AI &amp; ML Talent Program in Financial Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B1F33; --ink-2:#10263F; --ink-3:#17324F;
+    --paper:#F3F1EA; --paper-2:#E9E5D8;
+    --cyan:#7FD8E8; --cyan-dim:#3E6E7D; --brass:#CC9A3D;
+    --green:#3E8E5A; --amber:#C8892E; --red:#B4483F;
+    --charcoal:#1C2024; --white:#F7F8FA;
+    --line: rgba(127,216,232,0.35);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'IBM Plex Sans', sans-serif; background:var(--paper); color:var(--charcoal); line-height:1.55;}
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; font-weight:600; letter-spacing:-0.01em;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  a{color:inherit;}
+
+  .hero{background:var(--ink); color:var(--white); padding:80px 8vw 68px; position:relative; overflow:hidden;}
+  .hero::before{content:""; position:absolute; inset:0;
+    background-image:linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:48px 48px; opacity:0.22; pointer-events:none;}
+  .eyebrow{font-family:'IBM Plex Mono'; font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--cyan); margin-bottom:20px; position:relative;}
+  .eyebrow::before{content:"◇ ";}
+  .hero h1{position:relative; font-size:clamp(28px,4.2vw,46px); line-height:1.12; max-width:920px; margin-bottom:16px;}
+  .hero p.lede{position:relative; max-width:700px; color:#C9D3DC; font-size:15.5px;}
+
+  section{padding:56px 8vw; border-bottom:1px solid var(--paper-2);}
+  section:nth-of-type(even){background:var(--paper-2);}
+  .sec-head{display:flex; align-items:center; gap:14px; margin-bottom:24px;}
+  .sec-num{font-family:'IBM Plex Mono'; font-size:14px; color:var(--white); background:var(--ink); width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex:none;}
+  .sec-head h2{font-size:clamp(19px,2.3vw,26px);}
+  p.intro{max-width:78ch; font-size:15px; margin-bottom:22px; color:#3B3F44;}
+  p.intro strong{color:var(--charcoal);}
+
+  .callout{background:var(--ink); color:var(--white); padding:20px 24px; border-radius:4px; border-left:4px solid var(--brass); font-size:15px; font-family:'Space Grotesk'; margin-bottom:26px; max-width:78ch;}
+
+  .cards3{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1px; background:var(--paper-2); border:1px solid var(--paper-2);}
+  .card3{background:var(--paper); padding:20px 22px;}
+  .card3 .k{font-family:'IBM Plex Mono'; color:var(--cyan-dim); font-size:10.5px; text-transform:uppercase; letter-spacing:.06em;}
+  .card3 h3{font-size:15px; margin:6px 0 8px;}
+  .card3 p{font-size:13px; color:#4A4E52;}
+
+  .dims2{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1px; background:var(--paper-2); border:1px solid var(--paper-2);}
+  .dim2{background:var(--ink); color:var(--white); padding:18px 20px;}
+  .dim2 .t{font-family:'Space Grotesk'; font-size:14.5px; color:var(--cyan); margin-bottom:6px;}
+  .dim2 p{font-size:12.5px; color:#C9D3DC;}
+
+  .num-list{list-style:none; counter-reset:n; max-width:78ch;}
+  .num-list li{counter-increment:n; padding:9px 0 9px 34px; position:relative; font-size:14px; border-bottom:1px dashed var(--paper-2);}
+  .num-list li::before{content:counter(n); position:absolute; left:0; top:8px; font-family:'IBM Plex Mono'; font-size:11px; background:var(--ink); color:var(--white); width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
+
+  .kit-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1px; background:var(--paper-2); border:1px solid var(--paper-2); margin-bottom:20px;}
+  .kit-item{background:var(--paper); padding:16px 18px;}
+  .kit-item .t{font-family:'Space Grotesk'; font-size:14px; margin-bottom:5px;}
+  .kit-item .t::before{content:"▣ "; color:var(--cyan-dim); font-size:12px;}
+  .kit-item p{font-size:12.5px; color:#4A4E52;}
+
+  .loops{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px;}
+  .loop-card{background:var(--ink); color:var(--white); border-radius:4px; padding:20px;}
+  .loop-card h3{font-size:15px; color:var(--brass); margin-bottom:10px;}
+  .loop-card ol{padding-left:18px; font-size:12.5px; color:#C9D3DC;}
+  .loop-card li{padding:3px 0;}
+
+  .thesis-box{background:var(--paper); border:1px dashed var(--cyan-dim); padding:18px 22px; font-family:'Space Grotesk'; font-size:14.5px; font-style:italic; max-width:70ch; margin-top:16px;}
+  .thesis-box::before{content:"Role thesis — "; font-family:'IBM Plex Mono'; font-style:normal; font-size:10.5px; text-transform:uppercase; color:var(--cyan-dim); display:block; margin-bottom:6px;}
+
+  table{width:100%; border-collapse:collapse; font-size:13px;}
+  th{font-family:'IBM Plex Mono'; font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; text-align:left; padding:9px 12px; background:var(--ink); color:var(--white);}
+  td{padding:10px 12px; border-bottom:1px solid var(--paper-2); vertical-align:top;}
+  tr:nth-child(even) td{background:rgba(0,0,0,0.02);}
+
+  .flow{display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:20px 0;}
+  .flow-step{background:var(--ink); color:var(--white); padding:12px 10px; border-radius:4px; font-family:'IBM Plex Mono'; font-size:10.5px; text-align:center; width:118px;}
+  .flow-step .k2{color:var(--brass); display:block; margin-bottom:4px;}
+  .flow-arrow{color:var(--cyan-dim); font-size:16px;}
+
+  .peer-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1px; background:var(--paper-2); border:1px solid var(--paper-2);}
+  .peer-card{background:var(--paper); padding:20px 22px;}
+  .peer-card h3{font-size:15px; margin-bottom:8px;}
+  .peer-card p{font-size:13px; color:#4A4E52; margin-bottom:8px;}
+  .peer-card .mech{font-family:'IBM Plex Mono'; font-size:11px; color:var(--cyan-dim); border-top:1px solid var(--paper-2); padding-top:8px;}
+
+  .phases{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1px; background:var(--paper-2); border:1px solid var(--paper-2);}
+  .phase{background:var(--paper); padding:16px 16px;}
+  .phase .n{font-family:'IBM Plex Mono'; color:var(--cyan-dim); font-size:11px;}
+  .phase h3{font-size:13.5px; margin:6px 0 8px;}
+  .phase p{font-size:11.5px; color:#4A4E52;}
+
+  .sources{font-size:12px; color:#7A7568; max-width:78ch;}
+  .sources li{padding:3px 0; list-style:none;}
+
+  footer{padding:36px 8vw 56px; background:var(--ink); color:#93A3B0; font-family:'IBM Plex Mono'; font-size:11.5px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">Talent AI Lab — Program Design</div>
+  <h1>Building an AI &amp; ML Talent Program in Financial Services</h1>
+  <p class="lede">Job architecture, interview design, and market intelligence — treated as one operating system instead of three disconnected efforts. Built for the reality that in banking, a quality miss on an AI/ML hire isn't just a bad hire, it can become a governance issue.</p>
+</header>
+
+<!-- 1 -->
+<section>
+  <div class="sec-head"><div class="sec-num">1</div><h2>Why Structure Beats "Best Effort"</h2></div>
+  <p class="intro">The fastest way for AI/ML hiring to break at scale is treating it like "just another engineering hire." AI/ML work spans materially different modes — experimentation, production systems, and research — and in financial services, quality failures in hiring can compound into model-risk and compliance exposure, not just a weak hire.</p>
+  <div class="callout">A program is a hiring "operating system": it aligns job architecture and leveling, interview design and interviewer behavior, and recruiting intake and market intelligence — for consistency, comparability, and a defensible signal-to-noise ratio.</div>
+  <p class="intro">This matters most during a "SWE → ML" migration wave: when the market shifts, interviewers become inconsistent about what "good" looks like — especially for candidates moving from software engineering into applied ML. Structure forces shared definitions of what you're hiring for, at what level, and what evidence counts as proof.</p>
+</section>
+
+<!-- 2 -->
+<section>
+  <div class="sec-head"><div class="sec-num">2</div><h2>Job Architecture: Six Families, Not One "ML Engineer"</h2></div>
+  <p class="intro">A common failure mode is collapsing fundamentally different work into one generic role, then interviewing everyone the same way. A useful architecture separates work by primary output:</p>
+  <div class="cards3">
+    <div class="card3"><div class="k">Production</div><h3>ML Engineering</h3><p>Model-powered services and pipelines — reliability, integration, monitoring, latency/cost tradeoffs, disciplined deployment.</p></div>
+    <div class="card3"><div class="k">Translation</div><h3>Applied Scientist / Applied Research</h3><p>Problem framing, experimentation, feature/model selection, evaluation design, translating results into decisions.</p></div>
+    <div class="card3"><div class="k">Measurement</div><h3>Data Scientist / Decision Science</h3><p>Experimentation, causal inference where relevant, forecasting, analytics engineering, stakeholder translation.</p></div>
+    <div class="card3"><div class="k">Frontier</div><h3>AI Research</h3><p>Advancing methods, novel architectures/objectives, research-to-product transfer.</p></div>
+    <div class="card3"><div class="k">Enablement</div><h3>MLOps / ML Platform</h3><p>CI/CD-style automation, testing, monitoring, feature stores, model registries, reproducibility.</p></div>
+    <div class="card3"><div class="k">Governance</div><h3>Model Risk / AI Governance</h3><p>Validation, documentation, ongoing monitoring standards, repeatable control mechanisms.</p></div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section>
+  <div class="sec-head"><div class="sec-num">3</div><h2>Leveling: Scope, Ambiguity, and Risk Ownership</h2></div>
+  <p class="intro">Levels work best when defined by scope, ambiguity, and risk ownership — then expressed as observable evidence, not adjectives. Each job family gets a one-page "level card" converting abstract traits into deliverables shipped, systems operated, or validations performed.</p>
+  <div class="dims2">
+    <div class="dim2"><div class="t">Scope &amp; Autonomy</div><p>Size of systems/problems owned; how independently the person operates.</p></div>
+    <div class="dim2"><div class="t">Technical Depth &amp; Breadth</div><p>Depth in ML/statistics, engineering systems, or domain + measurement; breadth for cross-functional work.</p></div>
+    <div class="dim2"><div class="t">Production Ownership</div><p>Shipping and operating ML systems: incident response, monitoring, drift, rollout, cost/performance.</p></div>
+    <div class="dim2"><div class="t">Risk Literacy</div><p>Habits aligned to trustworthy-AI and model-risk-management expectations — critical in finance.</p></div>
+    <div class="dim2"><div class="t">Influence</div><p>Mentorship, standards, raising the team's bar, driving reusable mechanisms.</p></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section>
+  <div class="sec-head"><div class="sec-num">4</div><h2>Interview Program Design</h2></div>
+  <p class="intro">The interviewer program should produce repeatable outputs: level clarity, interview kits, and behaviors that lead to consistent signal.</p>
+  <ol class="num-list">
+    <li>Define hiring attributes first — via job analysis — before writing a single question.</li>
+    <li>Use structured interviews: the same questions, graded on the same rubric, for every candidate in the role.</li>
+    <li>Train and calibrate interviewers — shadowing and reverse-shadowing, with independent write-ups compared for discrepancies.</li>
+    <li>Make written feedback usable — committees rely on it heavily, since most members never interviewed the candidate themselves.</li>
+    <li>Measure candidate experience and iterate — survey every onsite candidate, offer or not.</li>
+  </ol>
+
+  <h3 style="font-size:15px; margin:28px 0 12px;">The Interview Kit</h3>
+  <div class="kit-grid">
+    <div class="kit-item"><div class="t">Role Success Profile</div><p>Outcomes at 6–12 months, core tasks, must-have vs. can-train.</p></div>
+    <div class="kit-item"><div class="t">Competency Rubric</div><p>4–5 scoring levels with behavioral anchors for weak vs. strong evidence.</p></div>
+    <div class="kit-item"><div class="t">Interview Loop Map</div><p>Which interviews exist, duration, and which rubric dimension each one owns.</p></div>
+    <div class="kit-item"><div class="t">Question Bank + Follow-Ups</div><p>Prompts designed to elicit comparable evidence and thought process.</p></div>
+    <div class="kit-item"><div class="t">Decision Mechanism</div><p>Debrief rules, independent write-ups before discussion, escalation pathways.</p></div>
+    <div class="kit-item"><div class="t">Risk &amp; Governance Interview</div><p>Bank-specific add-on for senior hires — model risk, security, data handling, or monitoring, as relevant.</p></div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section>
+  <div class="sec-head"><div class="sec-num">5</div><h2>Example Loop Archetypes</h2></div>
+  <p class="intro">3–5 approved loop archetypes, so every interview owns a slice of the rubric and none is "miscellaneous."</p>
+  <div class="loops">
+    <div class="loop-card">
+      <h3>ML Engineer Loop (production)</h3>
+      <ol><li>Software engineering (coding + testing habits)</li><li>ML foundations + evaluation thinking</li><li>ML system design (pipelines, latency/cost, monitoring/drift)</li><li>MLOps/operations depth (release, observability, reliability)</li><li>Behavioral (influence, ambiguity handling)</li></ol>
+    </div>
+    <div class="loop-card">
+      <h3>Applied Scientist Loop</h3>
+      <ol><li>Modeling/experimentation deep dive (candidate presents prior work)</li><li>Stats / experimental design</li><li>Coding (practical, data-focused)</li><li>Communication (write-up to non-technical stakeholders)</li></ol>
+    </div>
+    <div class="loop-card">
+      <h3>AI Research Loop</h3>
+      <ol><li>Research talk / paper deep dive</li><li>Technical depth interview</li><li>Implementation interview (ideas → working code)</li><li>Collaboration / values</li></ol>
+    </div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section>
+  <div class="sec-head"><div class="sec-num">6</div><h2>Recruiting Intake &amp; the "Role Thesis"</h2></div>
+  <p class="intro">Two teams can both say they need "applied AI" — one needs production ML engineers, another needs experimentation-heavy decision scientists, a third needs governance specialists. A strong intake translates business outcomes into job family + level, quantifies team capability gaps, and defines the real labor market by geography. Intake should explore the use case and lifecycle stage, data reality, risk/control requirements, existing team composition, time horizon, and stack constraints.</p>
+  <div class="thesis-box">This role is a Senior ML Engineer to productionize fraud-risk models with robust monitoring, release automation, and governance-grade documentation.</div>
+</section>
+
+<!-- 7 -->
+<section>
+  <div class="sec-head"><div class="sec-num">7</div><h2>Measuring the Talent Market, Geographically</h2></div>
+  <p class="intro">No single source captures the full market — a defensible read triangulates several:</p>
+  <table style="margin-bottom:24px;">
+    <tr><th>Source</th><th>What it anchors</th></tr>
+    <tr><td>BLS / O*NET</td><td>Stable baseline role definitions, task language, and wage anchors</td></tr>
+    <tr><td>LinkedIn Talent Insights</td><td>Talent pool sizing and competitor presence by title + skill</td></tr>
+    <tr><td>Job-postings analytics (e.g. Lightcast)</td><td>Demand intensity and skill-trend signals by geography</td></tr>
+  </table>
+  <p class="intro" style="margin-bottom:8px;">A repeatable market-sizing sequence:</p>
+  <div class="flow">
+    <div class="flow-step"><span class="k2">1</span>Define skill genome per family</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span class="k2">2</span>Supply benchmark per metro</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span class="k2">3</span>Demand benchmark per metro</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span class="k2">4</span>Tightness index</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span class="k2">5</span>Comp &amp; seniority layer</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span class="k2">6</span>Explicit location strategy</div>
+  </div>
+  <p class="intro">The deliverable isn't "a list of cities" — it's a repeatable dashboard: internal headcount vs. target, external supply/demand, competitor density, expected time-to-fill, and compensation bands.</p>
+</section>
+
+<!-- 8 -->
+<section>
+  <div class="sec-head"><div class="sec-num">8</div><h2>What Peer Companies Do — as Mechanisms, Not Culture</h2></div>
+  <p class="intro">The useful lens isn't "they hire smart people" — it's which repeatable mechanisms scale decision quality and candidate experience.</p>
+  <div class="peer-grid">
+    <div class="peer-card"><h3>Google</h3><p>Structured interviews and rubrics anchored to predetermined qualifications, interviewer calibration (shadowing / reverse-shadowing), and candidate-experience surveys used to continuously improve the process.</p><div class="mech">Mechanism: interview kit + calibration program + feedback-quality auditing</div></div>
+    <div class="peer-card"><h3>Amazon</h3><p>The Bar Raiser — an interviewer from outside the hiring team focused on long-term growth potential and consistency of the bar across hires.</p><div class="mech">Mechanism: independent reviewer function for senior/high-risk roles</div></div>
+    <div class="peer-card"><h3>Meta <span style="font-weight:400; font-size:11px; color:#7A7568;">(public reporting, not official docs)</span></h3><p>A loop culminating in a hiring-committee-style decision, followed by team matching, commonly described in third-party process write-ups.</p><div class="mech">Mechanism: separate "meets the bar" from "which team," especially useful when team needs shift fast</div></div>
+    <div class="peer-card"><h3>Anthropic</h3><p>A public, transparent AI-usage policy for candidates, and internal use of AI for drafting and analytics in recruiting — explicitly not for making hiring decisions.</p><div class="mech">Mechanism: written AI-usage policy + AI-assisted workflows without automated decisions</div></div>
+  </div>
+</section>
+
+<!-- 9 -->
+<section>
+  <div class="sec-head"><div class="sec-num">9</div><h2>Implementation Roadmap</h2></div>
+  <div class="phases">
+    <div class="phase"><div class="n">PHASE 1</div><h3>Foundation</h3><p>Define job families, levels, and a shared skills language.</p></div>
+    <div class="phase"><div class="n">PHASE 2</div><h3>Interview Kits</h3><p>Build structured interviews + rubrics for the highest-volume, highest-risk roles first.</p></div>
+    <div class="phase"><div class="n">PHASE 3</div><h3>Interviewer Enablement</h3><p>Calibration as an ongoing capability, not a one-time training.</p></div>
+    <div class="phase"><div class="n">PHASE 4</div><h3>Intake + Market Dashboards</h3><p>Standardize discovery across lines of business; stand up the market-sizing dashboard.</p></div>
+    <div class="phase"><div class="n">PHASE 5</div><h3>Governance</h3><p>Stand up an AI/ML Hiring Council owning job architecture, rubric updates, and interview-quality audits.</p></div>
+  </div>
+</section>
+
+<!-- sources -->
+<section style="border-bottom:none;">
+  <div class="sec-head"><h2>Frameworks &amp; Practices Referenced</h2></div>
+  <ul class="sources">
+    <li>· Google re:Work — structured interviewing, calibration, and candidate-experience guidance</li>
+    <li>· Amazon's Bar Raiser program and Leadership Principles</li>
+    <li>· Anthropic's public hiring AI-usage policy</li>
+    <li>· NIST AI Risk Management Framework</li>
+    <li>· U.S. Bureau of Labor Statistics occupational data; O*NET task/skill taxonomy</li>
+    <li>· LinkedIn Talent Insights; Lightcast labor-market analytics</li>
+  </ul>
+</section>
+
+<footer>
+  <span>Talent AI Lab — AI/ML Talent Program Playbook</span>
+  <span>Built &amp; maintained independently</span>
+</footer>
+
+</body>
+</html>
