@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Governance in Recruiting Operations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B1F33; --ink-2:#10263F; --ink-3:#17324F;
+    --paper:#F3F1EA; --paper-2:#E9E5D8;
+    --cyan:#7FD8E8; --cyan-dim:#3E6E7D; --brass:#CC9A3D;
+    --green:#3E8E5A; --amber:#C8892E; --red:#B4483F;
+    --charcoal:#1C2024; --white:#F7F8FA;
+    --line: rgba(127,216,232,0.35);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'IBM Plex Sans', sans-serif; background:var(--paper); color:var(--charcoal); line-height:1.55;}
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; font-weight:600; letter-spacing:-0.01em;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  a{color:inherit;}
+
+  .hero{background:var(--ink); color:var(--white); padding:80px 8vw 68px; position:relative; overflow:hidden;}
+  .hero::before{content:""; position:absolute; inset:0;
+    background-image:linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:48px 48px; opacity:0.22; pointer-events:none;}
+  .eyebrow{font-family:'IBM Plex Mono'; font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--cyan); margin-bottom:20px; position:relative;}
+  .eyebrow::before{content:"◇ ";}
+  .hero h1{position:relative; font-size:clamp(30px,4.6vw,52px); line-height:1.08; max-width:900px; margin-bottom:12px;}
+  .hero p.sub{position:relative; font-family:'Space Grotesk'; font-size:clamp(16px,2vw,22px); color:var(--brass); margin-bottom:18px;}
+  .hero p.lede{position:relative; max-width:680px; color:#C9D3DC; font-size:15.5px;}
+
+  section{padding:60px 8vw; border-bottom:1px solid var(--paper-2);}
+  section:nth-of-type(even){background:var(--paper-2);}
+  .sec-head{display:flex; align-items:center; gap:14px; margin-bottom:26px;}
+  .sec-num{
+    font-family:'IBM Plex Mono'; font-size:14px; color:var(--white); background:var(--ink);
+    width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex:none;
+  }
+  .sec-head h2{font-size:clamp(20px,2.4vw,27px);}
+
+  p.intro{max-width:74ch; font-size:15px; margin-bottom:22px; color:#3B3F44;}
+
+  /* checklist + dims */
+  .split{display:grid; grid-template-columns:1.2fr 0.8fr; gap:40px; align-items:start;}
+  @media (max-width:880px){.split{grid-template-columns:1fr;}}
+  .checklist{list-style:none;}
+  .checklist li{font-size:14.5px; padding:8px 0 8px 24px; position:relative; border-bottom:1px dashed var(--paper-2);}
+  .checklist li::before{content:"?"; position:absolute; left:0; top:8px; font-family:'IBM Plex Mono'; color:var(--cyan-dim); font-weight:600;}
+  .dims{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .dim{background:var(--ink); color:var(--white); padding:16px; border-radius:4px;}
+  .dim .t{font-family:'Space Grotesk'; font-size:14px; color:var(--cyan);}
+  .dim .s{font-family:'IBM Plex Mono'; font-size:10px; color:#93A3B0; margin-top:4px;}
+
+  /* risk table */
+  table{width:100%; border-collapse:collapse; font-size:13.5px;}
+  th{font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase; letter-spacing:.06em; text-align:left; padding:10px 12px; background:var(--ink); color:var(--white);}
+  td{padding:11px 12px; border-bottom:1px solid var(--paper-2); vertical-align:top;}
+  tr:nth-child(even) td{background:rgba(0,0,0,0.02);}
+  .risk-tag{font-family:'IBM Plex Mono'; font-size:11px; font-weight:600; padding:3px 8px; border-radius:3px; display:inline-block;}
+  .risk-low{background:rgba(62,142,90,0.15); color:var(--green);}
+  .risk-mod{background:rgba(200,137,46,0.15); color:var(--amber);}
+  .risk-high{background:rgba(180,72,63,0.15); color:var(--red);}
+  .risk-restr{background:var(--ink); color:var(--white);}
+
+  /* gap callout */
+  .callout{background:var(--ink); color:var(--white); padding:22px 26px; border-radius:4px; border-left:4px solid var(--red); font-size:16px; font-family:'Space Grotesk'; margin-bottom:30px;}
+  .flow{display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:26px 0 10px;}
+  .flow-step{background:var(--ink); color:var(--white); padding:12px 10px; border-radius:4px; font-family:'IBM Plex Mono'; font-size:10.5px; text-align:center; width:104px;}
+  .flow-step .k{color:var(--brass); display:block; margin-bottom:4px;}
+  .flow-arrow{color:var(--cyan-dim); font-size:16px;}
+  .warn-strip{background:rgba(180,72,63,0.1); border:1px solid rgba(180,72,63,0.3); color:#7A2E27; padding:10px 14px; font-size:13px; border-radius:3px; margin-top:14px;}
+
+  /* gap grid */
+  .grid3{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1px; background:var(--paper-2); border:1px solid var(--paper-2);}
+  .gcard{background:var(--paper); padding:22px;}
+  .gcard .t{font-family:'Space Grotesk'; font-size:15px; margin-bottom:8px;}
+  .gcard .t::before{content:"● "; color:var(--cyan-dim);}
+  .gcard p{font-size:13.5px; color:#4A4E52;}
+
+  /* control tower */
+  .tower{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px; background:var(--paper-2); border:1px solid var(--paper-2);}
+  .tstep{background:var(--paper); padding:16px 14px;}
+  .tstep .n{font-family:'IBM Plex Mono'; color:var(--cyan-dim); font-size:11px;}
+  .tstep h3{font-size:13.5px; margin:6px 0 8px;}
+  .tstep ul{list-style:none; font-size:11.5px; color:#4A4E52;}
+  .tstep li{padding:1px 0;}
+
+  /* pilot data */
+  .pilot-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:26px; align-items:start; margin-top:10px;}
+  .pilot-card{background:var(--paper); border:1px solid var(--paper-2);}
+  .pilot-card .hd{font-family:'IBM Plex Mono'; font-size:11px; background:var(--ink); color:var(--white); padding:9px 12px; text-transform:uppercase; letter-spacing:.05em;}
+  .pilot-card table{font-size:12px;}
+  .chip-ok{color:var(--green); font-weight:600;}
+  .chip-warn{color:var(--amber); font-weight:600;}
+  .chip-fail{color:var(--red); font-weight:600;}
+  .bar-wrap{padding:16px;}
+  .bar-row{display:flex; align-items:center; gap:8px; margin-bottom:8px; font-family:'IBM Plex Mono'; font-size:10.5px;}
+  .bar-row .lab{width:78px; flex:none;}
+  .bar-track{flex:1; background:var(--paper-2); height:14px; border-radius:2px; overflow:hidden;}
+  .bar-fill{height:100%; background:var(--cyan-dim);}
+  .bar-row .val{width:36px; text-align:right; flex:none;}
+  .note-red{font-size:12px; color:#7A2E27; margin-top:10px; padding:0 12px 12px;}
+
+  /* dashboard categories */
+  .dashlist{display:grid; gap:1px; background:var(--paper-2); border:1px solid var(--paper-2);}
+  .dashitem{background:var(--paper); padding:12px 16px; display:flex; gap:12px; align-items:baseline; font-size:13.5px;}
+  .dashitem .t{font-family:'Space Grotesk'; font-weight:600; min-width:190px;}
+  .dashitem .s{font-family:'IBM Plex Mono'; font-size:11px; color:#7A7568;}
+
+  /* RACI */
+  .badge{display:inline-flex; width:22px; height:22px; align-items:center; justify-content:center; border-radius:50%; font-family:'IBM Plex Mono'; font-size:11px; font-weight:600;}
+  .b-r{background:rgba(62,110,125,0.18); color:var(--cyan-dim);}
+  .b-a{background:var(--ink); color:var(--white);}
+  .b-c{background:rgba(200,137,46,0.15); color:var(--amber);}
+  .b-i{background:rgba(0,0,0,0.06); color:#5A5E62;}
+
+  /* top5 + leadership */
+  .two-col{display:grid; grid-template-columns:1fr 1fr; gap:40px;}
+  @media (max-width:880px){.two-col{grid-template-columns:1fr;}}
+  .num-list{list-style:none; counter-reset:n;}
+  .num-list li{counter-increment:n; padding:10px 0 10px 34px; position:relative; font-size:14px; border-bottom:1px dashed var(--paper-2);}
+  .num-list li::before{content:counter(n); position:absolute; left:0; top:9px; font-family:'IBM Plex Mono'; font-size:11px; background:var(--ink); color:var(--white); width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
+  .lead-box{background:var(--ink); color:var(--white); padding:24px; border-radius:4px; font-size:13.5px;}
+  .lead-box strong{color:var(--brass);}
+
+  /* pull quote */
+  .quote{background:var(--ink); color:var(--white); padding:48px 8vw; text-align:center;}
+  .quote blockquote{font-family:'Space Grotesk'; font-size:clamp(18px,2.6vw,26px); max-width:760px; margin:0 auto; line-height:1.4;}
+  .quote .mark{color:var(--brass);}
+
+  /* principles */
+  .principles{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px; background:var(--paper-2); border:1px solid var(--paper-2); margin-bottom:26px;}
+  .pitem{background:var(--paper); padding:18px 14px; text-align:center;}
+  .pitem .t{font-family:'Space Grotesk'; font-size:13.5px; margin-bottom:4px;}
+  .pitem .s{font-size:11.5px; color:#7A7568;}
+  .frameworks{font-size:13px; color:#3B3F44;}
+  .frameworks li{padding:4px 0;}
+
+  footer{padding:36px 8vw 56px; background:var(--ink); color:#93A3B0; font-family:'IBM Plex Mono'; font-size:11.5px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">Talent AI Lab — Governance Framework</div>
+  <h1>AI Governance in Recruiting Operations</h1>
+  <p class="sub">What, Where, Gaps &amp; How to Control</p>
+  <p class="lede">A working framework for governing every point where AI touches a candidate or employee — from the ATS to the CRM to the recruiter's final decision.</p>
+</header>
+
+<!-- 1 -->
+<section>
+  <div class="sec-head"><div class="sec-num">1</div><h2>What Is AI Governance in Recruiting?</h2></div>
+  <p class="intro">Putting clear rules, ownership, testing, and monitoring around any AI tool that influences a candidate or employee.</p>
+  <div class="split">
+    <ul class="checklist">
+      <li>What is the tool doing?</li>
+      <li>What data does it use?</li>
+      <li>Does it recommend, rank, advance, or reject?</li>
+      <li>How was it tested for accuracy and fairness?</li>
+      <li>Where is the human decision-maker?</li>
+      <li>Can a candidate request review or accommodation?</li>
+      <li>How will we know if the tool stops working properly?</li>
+    </ul>
+    <div class="dims">
+      <div class="dim"><div class="t">Quality</div><div class="s">accuracy &amp; reliability</div></div>
+      <div class="dim"><div class="t">Representation</div><div class="s">fairness across groups</div></div>
+      <div class="dim"><div class="t">Velocity</div><div class="s">speed without shortcuts</div></div>
+      <div class="dim"><div class="t">Trust</div><div class="s">the 4th dimension</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section>
+  <div class="sec-head"><div class="sec-num">2</div><h2>AI Use Cases &amp; Risk Level</h2></div>
+  <table>
+    <tr><th>Risk level</th><th>Examples in recruiting</th><th>Key governance controls</th></tr>
+    <tr>
+      <td><span class="risk-tag risk-low">LOWER RISK</span><br><span class="mono" style="font-size:11px;color:#7A7568;">Productivity support</span></td>
+      <td>Drafting job descriptions · Outreach templates · Interview scheduling · Meeting summaries</td>
+      <td>Privacy controls · Approved tools &amp; prompts · Human review</td>
+    </tr>
+    <tr>
+      <td><span class="risk-tag risk-mod">MODERATE RISK</span><br><span class="mono" style="font-size:11px;color:#7A7568;">Prioritization</span></td>
+      <td>Candidate matching · Talent rediscovery · Lead scoring · Sourcing recommendations</td>
+      <td>Job-relevance testing · Recruiter review · Outcome monitoring · Demographic monitoring</td>
+    </tr>
+    <tr>
+      <td><span class="risk-tag risk-high">HIGH RISK</span><br><span class="mono" style="font-size:11px;color:#7A7568;">Decision support</span></td>
+      <td>Resume ranking · Assessment scoring · Interview scoring · Automatic advancement or rejection</td>
+      <td>Impact assessment · Bias &amp; accessibility testing · Human oversight &amp; appeal · Continuous monitoring</td>
+    </tr>
+    <tr>
+      <td><span class="risk-tag risk-restr">RESTRICTED / PROHIBITED</span></td>
+      <td>Inferring emotions · Inferring protected characteristics · Video/voice analysis for traits</td>
+      <td>Generally prohibited unless explicitly approved</td>
+    </tr>
+  </table>
+</section>
+
+<!-- 3 -->
+<section>
+  <div class="sec-head"><div class="sec-num">3</div><h2>The Biggest Industry Gap</h2></div>
+  <div class="callout">We cannot consistently trace how an AI recommendation moves through the CRM &amp; ATS, influences a recruiter, and affects the final candidate decision.</div>
+  <p class="intro" style="margin-bottom:6px;">Why this happens in CRM + ATS integrations:</p>
+  <div class="flow">
+    <div class="flow-step"><span class="k">1</span>CRM identifies candidates</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span class="k">2</span>AI match score</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span class="k">3</span>Prioritize for outreach</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span class="k">4</span>Data flows to ATS</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span class="k">5</span>ATS recommends candidates</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span class="k">6</span>AI summarizes notes/skills</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span class="k">7</span>Recruiter advances/rejects</div>
+  </div>
+  <div class="warn-strip">A candidate can be disadvantaged at ANY step before the final human decision.</div>
+</section>
+
+<!-- 4 -->
+<section>
+  <div class="sec-head"><div class="sec-num">4</div><h2>The 6 Most Common Control Gaps</h2></div>
+  <div class="grid3">
+    <div class="gcard"><div class="t">No End-to-End AI Inventory</div><p>Companies don't know all the AI features active across CRM, ATS, and other tools.</p></div>
+    <div class="gcard"><div class="t">Poor Data Lineage</div><p>Cannot answer: "Why did this candidate get this recommendation?"</p></div>
+    <div class="gcard"><div class="t">Vendor Changes Ignored</div><p>Model, data, taxonomy, rules, or defaults change without re-assessment.</p></div>
+    <div class="gcard"><div class="t">Weak Human Oversight</div><p>Clicking "Accept" is not meaningful review. Recruiters over-rely on the score.</p></div>
+    <div class="gcard"><div class="t">Bias Measured Only at Final Stage</div><p>Problems at sourcing or matching stage stay hidden in overall hiring data.</p></div>
+    <div class="gcard"><div class="t">Fragmented Ownership</div><p>No single owner across Recruiting, HR Tech, Legal &amp; Risk, and Vendor.</p></div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section>
+  <div class="sec-head"><div class="sec-num">5</div><h2>The Recruiting AI Control Tower (Operating Model)</h2></div>
+  <div class="tower">
+    <div class="tstep"><div class="n">1</div><h3>Use Case Inventory</h3><ul><li>Purpose</li><li>Data used</li><li>Risk tier</li><li>Owner</li><li>Review date</li></ul></div>
+    <div class="tstep"><div class="n">2</div><h3>Risk Classification</h3><ul><li>Green (support)</li><li>Amber (prioritize)</li><li>Red (decision)</li><li>Restricted</li></ul></div>
+    <div class="tstep"><div class="n">3</div><h3>Impact Assessment</h3><ul><li>Job relevance</li><li>Fairness</li><li>Accessibility</li><li>Privacy</li><li>Human oversight</li><li>Transparency</li></ul></div>
+    <div class="tstep"><div class="n">4</div><h3>Validate (Pilot)</h3><ul><li>Quality</li><li>Fairness</li><li>False negatives</li><li>Override rates</li><li>Candidate feedback</li></ul></div>
+    <div class="tstep"><div class="n">5</div><h3>Monitor &amp; Measure</h3><ul><li>Dashboards</li><li>Alerts</li><li>Thresholds</li><li>Trend analysis</li><li>Quarterly reviews</li></ul></div>
+    <div class="tstep"><div class="n">6</div><h3>Change Management</h3><ul><li>Model</li><li>Data</li><li>Rules</li><li>Configuration</li><li>Geography</li></ul></div>
+    <div class="tstep"><div class="n">7</div><h3>Improve &amp; Govern</h3><ul><li>Fix issues</li><li>Re-test</li><li>Re-approve</li><li>Scale or pause</li></ul></div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section>
+  <div class="sec-head"><div class="sec-num">6</div><h2>Illustrative Data Control (Pilot Example)</h2></div>
+  <div class="pilot-grid">
+    <div class="pilot-card">
+      <div class="hd">A) Business Results (AI-Matching Pilot)</div>
+      <table>
+        <tr><th>Metric</th><th>Manual</th><th>AI-Assisted</th><th>Result</th></tr>
+        <tr><td>Applications reviewed</td><td>12,000</td><td>12,000</td><td>Same population</td></tr>
+        <tr><td>Time-to-qualified slate</td><td>8.0 days</td><td>5.5 days</td><td>31% faster</td></tr>
+        <tr><td>Recruiter review hours</td><td>1,400</td><td>900</td><td>36% reduction</td></tr>
+        <tr><td>Qualified-slate rate</td><td>58%</td><td>66%</td><td>+8 pts</td></tr>
+        <tr><td>Interview-to-offer rate</td><td>24%</td><td>27%</td><td>+3 pts</td></tr>
+        <tr><td>Candidate complaints</td><td>0.4%</td><td>0.5%</td><td>Monitor</td></tr>
+        <tr><td>Human review of recs</td><td>N/A</td><td>100%</td><td>Control met</td></tr>
+      </table>
+    </div>
+    <div class="pilot-card">
+      <div class="hd">B) Fairness Test (Selection Rate)</div>
+      <table>
+        <tr><th>Group</th><th>Evaluated</th><th>Advanced</th><th>Rate</th><th>Impact ratio</th></tr>
+        <tr><td>Group A</td><td>5,000</td><td>1,300</td><td>26%</td><td class="chip-ok">1.00 ✓</td></tr>
+        <tr><td>Group B</td><td>4,000</td><td>880</td><td>22%</td><td class="chip-warn">0.85 ⚠</td></tr>
+        <tr><td>Group C</td><td>3,000</td><td>510</td><td>17%</td><td class="chip-fail">0.65 ✗</td></tr>
+      </table>
+      <div class="note-red">Impact ratio &lt; 0.80 (80% rule of thumb) = potential adverse impact. Trigger investigation, remediation, and re-test before scaling.</div>
+    </div>
+    <div class="pilot-card">
+      <div class="hd">C) Pipeline Stage Monitoring — Representation % by Stage (Group C)</div>
+      <div class="bar-wrap">
+        <div class="bar-row"><div class="lab">Surfaced</div><div class="bar-track"><div class="bar-fill" style="width:75%"></div></div><div class="val">30%</div></div>
+        <div class="bar-row"><div class="lab">Contacted</div><div class="bar-track"><div class="bar-fill" style="width:70%"></div></div><div class="val">28%</div></div>
+        <div class="bar-row"><div class="lab">Reviewed</div><div class="bar-track"><div class="bar-fill" style="width:60%"></div></div><div class="val">24%</div></div>
+        <div class="bar-row"><div class="lab">Interviewed</div><div class="bar-track"><div class="bar-fill" style="width:48%"></div></div><div class="val">19%</div></div>
+        <div class="bar-row"><div class="lab">Advanced</div><div class="bar-track"><div class="bar-fill" style="width:38%"></div></div><div class="val">15%</div></div>
+        <div class="bar-row"><div class="lab">Hired</div><div class="bar-track"><div class="bar-fill" style="width:30%"></div></div><div class="val">12%</div></div>
+      </div>
+      <div class="note-red">Drop-offs at early stages indicate potential AI or process bias. Investigate each stage.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section>
+  <div class="sec-head"><div class="sec-num">7</div><h2>7 Key Dashboard Categories</h2></div>
+  <div class="dashlist">
+    <div class="dashitem"><div class="t">Governance Coverage</div><div class="s">Inventory, assessments, approvals, training</div></div>
+    <div class="dashitem"><div class="t">Fairness &amp; Representation</div><div class="s">Selection rate, impact ratio, representation change</div></div>
+    <div class="dashitem"><div class="t">Quality &amp; Validity</div><div class="s">Yield, false positives/negatives, conversion</div></div>
+    <div class="dashitem"><div class="t">Human Oversight</div><div class="s">Override rate, appeals, review compliance</div></div>
+    <div class="dashitem"><div class="t">Candidate Experience</div><div class="s">Notice, accommodation, complaints, trust</div></div>
+    <div class="dashitem"><div class="t">Business Value</div><div class="s">Time saved, cost per hire, agency avoided</div></div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section>
+  <div class="sec-head"><div class="sec-num">8</div><h2>RACI for AI Governance</h2></div>
+  <table>
+    <tr><th>Activity</th><th>Recruiting Ops</th><th>HR Tech</th><th>Legal / EEO</th><th>Vendor</th></tr>
+    <tr><td>Use Case Inventory</td><td><span class="badge b-a">A</span></td><td><span class="badge b-r">R</span></td><td><span class="badge b-c">C</span></td><td><span class="badge b-i">I</span></td></tr>
+    <tr><td>Risk Classification</td><td><span class="badge b-r">R</span></td><td><span class="badge b-r">R</span></td><td><span class="badge b-a">A</span></td><td><span class="badge b-i">I</span></td></tr>
+    <tr><td>Validation &amp; Testing</td><td><span class="badge b-c">C</span></td><td><span class="badge b-a">A</span></td><td><span class="badge b-c">C</span></td><td><span class="badge b-r">R</span></td></tr>
+    <tr><td>Outcome Monitoring</td><td><span class="badge b-a">A</span></td><td><span class="badge b-r">R</span></td><td><span class="badge b-c">C</span></td><td><span class="badge b-i">I</span></td></tr>
+    <tr><td>Incident Response</td><td><span class="badge b-c">C</span></td><td><span class="badge b-r">R</span></td><td><span class="badge b-a">A</span></td><td><span class="badge b-r">R</span></td></tr>
+    <tr><td>Training</td><td><span class="badge b-a">A</span></td><td><span class="badge b-c">C</span></td><td><span class="badge b-c">C</span></td><td><span class="badge b-i">I</span></td></tr>
+  </table>
+  <p class="mono" style="font-size:11px; color:#7A7568; margin-top:12px;">R = Responsible · A = Accountable · C = Consulted · I = Informed</p>
+</section>
+
+<!-- 9 + 10 -->
+<section>
+  <div class="two-col">
+    <div>
+      <div class="sec-head"><div class="sec-num">9</div><h2>Top 5 Controls to Start First</h2></div>
+      <ol class="num-list">
+        <li>Turn off auto-activation of new AI features.</li>
+        <li>No AI-only rejection for unapproved use cases.</li>
+        <li>Create a feature-level inventory and data-flow map.</li>
+        <li>Require human review and evidence logs for material decisions.</li>
+        <li>Monitor outcomes by stage, job family, geography, and group.</li>
+      </ol>
+    </div>
+    <div>
+      <div class="sec-head"><div class="sec-num">10</div><h2>Your Leadership Role</h2></div>
+      <div class="lead-box">
+        <p>You are <strong>not</strong> the Legal or Model Risk owner. You translate policy into operating controls, dashboards, workflows, training, and accountability.</p>
+        <p style="margin-top:12px;">You make AI safe enough, measurable enough, and operationally disciplined enough to scale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 quote -->
+<section class="quote" style="border-bottom:none;">
+  <div class="sec-head" style="justify-content:center;"><div class="sec-num">11</div></div>
+  <blockquote><span class="mark">"</span>The ATS or CRM is not the complete AI system — the full recruiting workflow is the system, and Recruiting Operations must govern every point where AI influences candidate opportunity.<span class="mark">"</span></blockquote>
+</section>
+
+<!-- foundation principles -->
+<section>
+  <div class="sec-head"><h2>Foundation Principles</h2></div>
+  <div class="principles">
+    <div class="pitem"><div class="t">Privacy</div><div class="s">Protect candidate data</div></div>
+    <div class="pitem"><div class="t">Safety &amp; Security</div><div class="s">Secure systems, prevent misuse</div></div>
+    <div class="pitem"><div class="t">Transparency</div><div class="s">Tell candidates what AI is used and how</div></div>
+    <div class="pitem"><div class="t">Nondiscrimination</div><div class="s">Fair, inclusive &amp; equitable outcomes</div></div>
+    <div class="pitem"><div class="t">Accountability</div><div class="s">Clear owners, records &amp; remedies</div></div>
+    <div class="pitem"><div class="t">Human Oversight</div><div class="s">People make the final decisions</div></div>
+  </div>
+  <p class="mono" style="font-size:12px; color:#7A7568; margin-bottom:8px;">REFERENCE FRAMEWORKS</p>
+  <ul class="frameworks" style="list-style:none;">
+    <li>· NIST AI Risk Management Framework (Govern, Map, Measure, Manage)</li>
+    <li>· EEOC AI &amp; Automated Systems Guidance</li>
+    <li>· NYC Automated Employment Decision Tools Law</li>
+    <li>· EU AI Act (High-Risk AI requirements)</li>
+  </ul>
+</section>
+
+<footer>
+  <span>Talent AI Lab — AI Governance in Recruiting Operations</span>
+  <span>Built &amp; maintained independently</span>
+</footer>
+
+</body>
+</html>
