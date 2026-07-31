@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI/ML Sourcing Mindmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B1F33; --ink-2:#10263F;
+    --paper:#F3F1EA; --paper-2:#E9E5D8;
+    --cyan:#7FD8E8; --cyan-dim:#3E6E7D; --brass:#CC9A3D;
+    --charcoal:#1C2024; --white:#F7F8FA;
+    --line: rgba(127,216,232,0.35);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:'IBM Plex Sans', sans-serif; background:var(--paper); color:var(--charcoal); line-height:1.55;}
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; font-weight:600; letter-spacing:-0.01em;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  a{color:inherit; text-decoration:none;}
+
+  .hero{background:var(--ink); color:var(--white); padding:76px 8vw 40px; position:relative; overflow:hidden;}
+  .hero::before{content:""; position:absolute; inset:0;
+    background-image:linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:48px 48px; opacity:0.22; pointer-events:none;}
+  .eyebrow{font-family:'IBM Plex Mono'; font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--cyan); margin-bottom:18px; position:relative;}
+  .eyebrow::before{content:"◇ ";}
+  .hero h1{position:relative; font-size:clamp(28px,4.4vw,46px); line-height:1.1; max-width:820px; margin-bottom:14px;}
+  .hero p{position:relative; max-width:700px; color:#C9D3DC; font-size:15px;}
+  .hero .links{position:relative; margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;}
+  .hero .links a{font-family:'IBM Plex Mono'; font-size:11.5px; color:var(--cyan); border:1px solid var(--cyan-dim); padding:7px 12px; border-radius:3px;}
+  .hero .links a:hover{background:rgba(127,216,232,0.1);}
+
+  .hub-wrap{background:var(--ink); padding:0 8vw 60px;}
+  .hub-wrap svg{width:100%; height:auto; display:block; max-width:900px; margin:0 auto;}
+
+  main{padding:56px 8vw;}
+  .legend{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:34px;}
+  .legend span{font-family:'IBM Plex Mono'; font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:#7A7568; background:var(--paper-2); padding:5px 10px; border-radius:3px;}
+
+  .skill-card{background:var(--paper); border:1px solid var(--paper-2); border-left:4px solid var(--cyan-dim); border-radius:4px; padding:26px 28px; margin-bottom:26px;}
+  .skill-card .num{font-family:'IBM Plex Mono'; color:var(--brass); font-size:12px;}
+  .skill-card h2{font-size:19px; margin:6px 0 8px;}
+  .skill-card .looks{font-size:13px; color:#4A4E52; margin-bottom:18px; max-width:80ch;}
+  .looks strong{color:var(--charcoal);}
+
+  .branches{display:grid; gap:10px;}
+  .branch{display:grid; grid-template-columns:150px 1fr; gap:14px; align-items:start; padding:10px 0; border-top:1px dashed var(--paper-2);}
+  .branch .cat{font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--cyan-dim); padding-top:4px;}
+  .chips{display:flex; flex-wrap:wrap; gap:6px;}
+  .chip{font-family:'IBM Plex Mono'; font-size:11.5px; background:var(--ink); color:var(--white); padding:5px 10px; border-radius:3px; transition:background .15s ease;}
+  .chip:hover{background:#153454; color:var(--cyan);}
+
+  .footprint-note{background:var(--paper-2); border-left:4px solid var(--brass); padding:16px 20px; font-size:13.5px; max-width:80ch; margin:16px 0 40px;}
+
+  .cross{background:var(--ink-2); color:var(--white); padding:44px 8vw; margin-top:20px;}
+  .cross h2{color:var(--white); font-size:20px; margin-bottom:12px;}
+  .cross p{color:#C9D3DC; font-size:14px; max-width:76ch; margin-bottom:16px;}
+  .cross .refs{display:flex; gap:12px; flex-wrap:wrap;}
+  .cross .refs a{font-family:'IBM Plex Mono'; font-size:12px; color:var(--cyan); border:1px solid var(--cyan-dim); padding:8px 14px; border-radius:3px;}
+
+  footer{padding:36px 8vw 56px; background:var(--ink); color:#93A3B0; font-family:'IBM Plex Mono'; font-size:11.5px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">Talent AI Lab — Sourcing Compass</div>
+  <h1>AI/ML Sourcing Mindmap</h1>
+  <p>Six skill clusters, drawn from live JPMC AI/ML job requirements and the talent program playbook — each mapped to exactly where a sourcer finds real footprints: papers, code, competitions, questions, writing, meetups, and conferences.</p>
+  <div class="links">
+    <a href="aiml-talent-program-playbook.html">↳ Full talent program playbook</a>
+    <a href="sourcing-motion/">↳ 7-step sourcing framework (3 talent families)</a>
+  </div>
+</header>
+
+<div class="hub-wrap">
+  <svg viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="450" cy="210" r="66" fill="none" stroke="#7FD8E8" stroke-width="1.6"/>
+    <text x="450" y="204" text-anchor="middle" fill="#F7F8FA" font-family="Space Grotesk" font-size="14" font-weight="600">AI/ML</text>
+    <text x="450" y="222" text-anchor="middle" fill="#F7F8FA" font-family="Space Grotesk" font-size="14" font-weight="600">Sourcing</text>
+    <g font-family="IBM Plex Mono" font-size="10.5" fill="#F7F8FA">
+      <!-- 6 nodes around hub -->
+      <g stroke="#3E6E7D" stroke-width="1.2" stroke-dasharray="4 4">
+        <line x1="450" y1="144" x2="450" y2="60"/>
+        <line x1="510" y1="170" x2="700" y2="90"/>
+        <line x1="510" y1="250" x2="700" y2="330"/>
+        <line x1="450" y1="276" x2="450" y2="360"/>
+        <line x1="390" y1="250" x2="200" y2="330"/>
+        <line x1="390" y1="170" x2="200" y2="90"/>
+      </g>
+      <rect x="370" y="20" width="160" height="40" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.1"/>
+      <text x="450" y="44" text-anchor="middle">01 · LLM / GenAI Eng</text>
+
+      <rect x="610" y="60" width="180" height="40" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.1"/>
+      <text x="700" y="84" text-anchor="middle">02 · Applied ML Eng</text>
+
+      <rect x="610" y="300" width="180" height="40" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.1"/>
+      <text x="700" y="324" text-anchor="middle">03 · MLOps / Infra</text>
+
+      <rect x="370" y="360" width="160" height="40" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.1"/>
+      <text x="450" y="384" text-anchor="middle">04 · Applied Research</text>
+
+      <rect x="110" y="300" width="180" height="40" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.1"/>
+      <text x="200" y="324" text-anchor="middle">05 · Data Science</text>
+
+      <rect x="110" y="60" width="180" height="40" rx="3" fill="none" stroke="#7FD8E8" stroke-width="1.1"/>
+      <text x="200" y="84" text-anchor="middle">06 · Model Risk / Gov</text>
+    </g>
+  </svg>
+</div>
+
+<main>
+  <div class="legend">
+    <span>Papers &amp; Scholar</span><span>GitHub &amp; Linux Foundation</span><span>Kaggle &amp; Stack Overflow</span><span>Blogs &amp; Meetups</span><span>Conferences</span>
+  </div>
+
+  <!-- 01 -->
+  <div class="skill-card">
+    <div class="num">01</div>
+    <h2>LLM / Generative AI Engineering</h2>
+    <div class="looks"><strong>Skills to look for:</strong> RAG pipelines, agentic frameworks, prompt engineering, fine-tuning (LoRA / QLoRA / DoRA), evaluation frameworks, vector databases, LangChain / LlamaIndex.</div>
+    <div class="branches">
+      <div class="branch"><div class="cat">Papers &amp; Scholar</div><div class="chips">
+        <a class="chip" href="https://arxiv.org/list/cs.CL/recent" target="_blank">arXiv — cs.CL</a>
+        <a class="chip" href="https://scholar.google.com/scholar?q=retrieval+augmented+generation" target="_blank">Google Scholar</a>
+        <a class="chip" href="https://paperswithcode.com/task/language-modelling" target="_blank">Papers with Code</a>
+      </div></div>
+      <div class="branch"><div class="cat">GitHub &amp; Linux Foundation</div><div class="chips">
+        <a class="chip" href="https://github.com/langchain-ai" target="_blank">langchain-ai</a>
+        <a class="chip" href="https://github.com/huggingface" target="_blank">huggingface</a>
+        <a class="chip" href="https://github.com/vllm-project/vllm" target="_blank">vLLM (PyTorch Foundation)</a>
+        <a class="chip" href="https://pytorch.org/foundation" target="_blank">PyTorch Foundation</a>
+      </div></div>
+      <div class="branch"><div class="cat">Kaggle &amp; Stack Overflow</div><div class="chips">
+        <a class="chip" href="https://www.kaggle.com/competitions?searchQuery=llm" target="_blank">Kaggle — LLM comps</a>
+        <a class="chip" href="https://stackoverflow.com/questions/tagged/langchain" target="_blank">SO — langchain tag</a>
+        <a class="chip" href="https://stackoverflow.com/questions/tagged/large-language-model" target="_blank">SO — LLM tag</a>
+      </div></div>
+      <div class="branch"><div class="cat">Blogs &amp; Meetups</div><div class="chips">
+        <a class="chip" href="https://huggingface.co/blog" target="_blank">Hugging Face blog</a>
+        <a class="chip" href="https://www.meetup.com/topics/large-language-models/" target="_blank">Meetup — LLM groups</a>
+        <a class="chip" href="https://aitinkerers.org" target="_blank">AI Tinkerers</a>
+        <a class="chip" href="https://mlops.community" target="_blank">MLOps Community</a>
+      </div></div>
+      <div class="branch"><div class="cat">Conferences</div><div class="chips">
+        <a class="chip" href="https://www.ai.engineer" target="_blank">AI Engineer Summit</a>
+        <a class="chip" href="https://2026.aclweb.org" target="_blank">ACL / EMNLP</a>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- 02 -->
+  <div class="skill-card">
+    <div class="num">02</div>
+    <h2>Applied ML Engineering (Production Models)</h2>
+    <div class="looks"><strong>Skills to look for:</strong> Python at scale, PyTorch / TensorFlow / Scikit-learn / Keras, model training, testing discipline (pytest), CI/CD for ML, system design for ML services.</div>
+    <div class="branches">
+      <div class="branch"><div class="cat">Papers &amp; Scholar</div><div class="chips">
+        <a class="chip" href="https://arxiv.org/list/cs.LG/recent" target="_blank">arXiv — cs.LG</a>
+        <a class="chip" href="https://www.semanticscholar.org" target="_blank">Semantic Scholar</a>
+      </div></div>
+      <div class="branch"><div class="cat">GitHub &amp; Linux Foundation</div><div class="chips">
+        <a class="chip" href="https://github.com/pytorch/pytorch" target="_blank">pytorch/pytorch</a>
+        <a class="chip" href="https://github.com/tensorflow/tensorflow" target="_blank">tensorflow/tensorflow</a>
+        <a class="chip" href="https://github.com/scikit-learn/scikit-learn" target="_blank">scikit-learn</a>
+        <a class="chip" href="https://www.linuxfoundation.org/projects" target="_blank">Linux Foundation — all projects</a>
+      </div></div>
+      <div class="branch"><div class="cat">Kaggle &amp; Stack Overflow</div><div class="chips">
+        <a class="chip" href="https://www.kaggle.com/rankings" target="_blank">Kaggle — rankings</a>
+        <a class="chip" href="https://stackoverflow.com/questions/tagged/pytorch" target="_blank">SO — pytorch tag</a>
+        <a class="chip" href="https://stackoverflow.com/questions/tagged/tensorflow" target="_blank">SO — tensorflow tag</a>
+      </div></div>
+      <div class="branch"><div class="cat">Blogs &amp; Meetups</div><div class="chips">
+        <a class="chip" href="https://pytorch.org/blog/" target="_blank">PyTorch blog</a>
+        <a class="chip" href="https://towardsdatascience.com" target="_blank">Towards Data Science</a>
+        <a class="chip" href="https://www.meetup.com/topics/pydata/" target="_blank">PyData meetups</a>
+      </div></div>
+      <div class="branch"><div class="cat">Conferences</div><div class="chips">
+        <a class="chip" href="https://neurips.cc" target="_blank">NeurIPS</a>
+        <a class="chip" href="https://icml.cc" target="_blank">ICML</a>
+        <a class="chip" href="https://events.linuxfoundation.org/pytorch-conference-north-america/" target="_blank">PyTorch Conference</a>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- 03 -->
+  <div class="skill-card">
+    <div class="num">03</div>
+    <h2>MLOps / ML Platform &amp; Infrastructure</h2>
+    <div class="looks"><strong>Skills to look for:</strong> AWS SageMaker / Bedrock, Docker &amp; Kubernetes (EKS), distributed training/serving (Ray, vLLM, DeepSpeed), model registries, monitoring &amp; drift, CI/CD pipelines.</div>
+    <div class="branches">
+      <div class="branch"><div class="cat">Papers &amp; Scholar</div><div class="chips">
+        <a class="chip" href="https://mlsys.org" target="_blank">MLSys proceedings</a>
+        <a class="chip" href="https://scholar.google.com/scholar?q=distributed+model+serving" target="_blank">Google Scholar</a>
+      </div></div>
+      <div class="branch"><div class="cat">GitHub &amp; Linux Foundation</div><div class="chips">
+        <a class="chip" href="https://github.com/ray-project/ray" target="_blank">ray-project/ray (PyTorch Fdn)</a>
+        <a class="chip" href="https://github.com/microsoft/DeepSpeed" target="_blank">microsoft/DeepSpeed (PyTorch Fdn)</a>
+        <a class="chip" href="https://github.com/vllm-project/vllm" target="_blank">vllm-project/vllm</a>
+        <a class="chip" href="https://github.com/mlflow/mlflow" target="_blank">mlflow</a>
+        <a class="chip" href="https://github.com/kubeflow" target="_blank">kubeflow</a>
+        <a class="chip" href="https://lfaidata.foundation/projects/" target="_blank">LF AI &amp; Data — projects</a>
+      </div></div>
+      <div class="branch"><div class="cat">Kaggle &amp; Stack Overflow</div><div class="chips">
+        <a class="chip" href="https://stackoverflow.com/questions/tagged/kubernetes" target="_blank">SO — kubernetes tag</a>
+        <a class="chip" href="https://stackoverflow.com/questions/tagged/amazon-sagemaker" target="_blank">SO — sagemaker tag</a>
+      </div></div>
+      <div class="branch"><div class="cat">Blogs &amp; Meetups</div><div class="chips">
+        <a class="chip" href="https://netflixtechblog.com" target="_blank">Netflix Tech Blog</a>
+        <a class="chip" href="https://eng.uber.com" target="_blank">Uber Engineering</a>
+        <a class="chip" href="https://mlops.community" target="_blank">MLOps Community</a>
+      </div></div>
+      <div class="branch"><div class="cat">Conferences</div><div class="chips">
+        <a class="chip" href="https://www.nvidia.com/gtc/" target="_blank">NVIDIA GTC</a>
+        <a class="chip" href="https://raysummit.anyscale.com" target="_blank">Ray Summit</a>
+        <a class="chip" href="https://kdd.org" target="_blank">KDD</a>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- 04 -->
+  <div class="skill-card">
+    <div class="num">04</div>
+    <h2>Applied Research / Frontier AI</h2>
+    <div class="looks"><strong>Skills to look for:</strong> Novel architectures, transformers, multimodal models, reinforcement learning, generative models (GANs/VAEs), first- or second-author publications.</div>
+    <div class="branches">
+      <div class="branch"><div class="cat">Papers &amp; Scholar</div><div class="chips">
+        <a class="chip" href="https://arxiv.org/list/cs.AI/recent" target="_blank">arXiv — cs.AI</a>
+        <a class="chip" href="https://scholar.google.com" target="_blank">Google Scholar</a>
+        <a class="chip" href="https://www.semanticscholar.org" target="_blank">Semantic Scholar</a>
+        <a class="chip" href="https://paperswithcode.com" target="_blank">Papers with Code</a>
+      </div></div>
+      <div class="branch"><div class="cat">GitHub &amp; Linux Foundation</div><div class="chips">
+        <a class="chip" href="https://github.com/huggingface/transformers" target="_blank">huggingface/transformers</a>
+        <a class="chip" href="https://github.com/facebookresearch" target="_blank">facebookresearch</a>
+      </div></div>
+      <div class="branch"><div class="cat">Kaggle &amp; Stack Overflow</div><div class="chips">
+        <a class="chip" href="https://www.kaggle.com/competitions" target="_blank">Kaggle — competitions</a>
+      </div></div>
+      <div class="branch"><div class="cat">Blogs &amp; Meetups</div><div class="chips">
+        <a class="chip" href="https://distill.pub" target="_blank">Distill (archive)</a>
+        <a class="chip" href="https://www.meetup.com/topics/machine-learning/" target="_blank">Meetup — ML research groups</a>
+      </div></div>
+      <div class="branch"><div class="cat">Conferences</div><div class="chips">
+        <a class="chip" href="https://neurips.cc" target="_blank">NeurIPS</a>
+        <a class="chip" href="https://iclr.cc" target="_blank">ICLR</a>
+        <a class="chip" href="https://cvpr.thecvf.com" target="_blank">CVPR</a>
+        <a class="chip" href="https://2026.aclweb.org" target="_blank">ACL / EMNLP</a>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- 05 -->
+  <div class="skill-card">
+    <div class="num">05</div>
+    <h2>Data Science / Decision Science</h2>
+    <div class="looks"><strong>Skills to look for:</strong> PySpark, SQL, experimentation &amp; causal inference, forecasting, feature engineering, Tableau / visualization, stakeholder translation.</div>
+    <div class="branches">
+      <div class="branch"><div class="cat">Papers &amp; Scholar</div><div class="chips">
+        <a class="chip" href="https://scholar.google.com/scholar?q=causal+inference+experimentation" target="_blank">Google Scholar</a>
+      </div></div>
+      <div class="branch"><div class="cat">GitHub &amp; Linux Foundation</div><div class="chips">
+        <a class="chip" href="https://github.com/apache/spark" target="_blank">apache/spark</a>
+        <a class="chip" href="https://github.com/pandas-dev/pandas" target="_blank">pandas-dev/pandas</a>
+      </div></div>
+      <div class="branch"><div class="cat">Kaggle &amp; Stack Overflow</div><div class="chips">
+        <a class="chip" href="https://www.kaggle.com/rankings" target="_blank">Kaggle — notebooks &amp; rankings</a>
+        <a class="chip" href="https://stackoverflow.com/questions/tagged/apache-spark" target="_blank">SO — spark tag</a>
+      </div></div>
+      <div class="branch"><div class="cat">Blogs &amp; Meetups</div><div class="chips">
+        <a class="chip" href="https://www.databricks.com/blog" target="_blank">Databricks blog</a>
+        <a class="chip" href="https://www.meetup.com/topics/data-science/" target="_blank">Meetup — data science groups</a>
+      </div></div>
+      <div class="branch"><div class="cat">Conferences</div><div class="chips">
+        <a class="chip" href="https://kdd.org" target="_blank">KDD</a>
+        <a class="chip" href="https://datacouncil.ai" target="_blank">Data Council</a>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- 06 -->
+  <div class="skill-card">
+    <div class="num">06</div>
+    <h2>Model Risk / AI Governance</h2>
+    <div class="looks"><strong>Skills to look for:</strong> Model validation &amp; documentation, ongoing monitoring standards, bias/fairness testing, NIST AI RMF alignment, regulatory reporting habits.</div>
+    <div class="branches">
+      <div class="branch"><div class="cat">Papers &amp; Scholar</div><div class="chips">
+        <a class="chip" href="https://scholar.google.com/scholar?q=model+risk+management+AI+governance" target="_blank">Google Scholar</a>
+        <a class="chip" href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank">NIST AI RMF</a>
+      </div></div>
+      <div class="branch"><div class="cat">GitHub &amp; Linux Foundation</div><div class="chips">
+        <a class="chip" href="https://github.com/topics/model-validation" target="_blank">GitHub — model-validation topic</a>
+      </div></div>
+      <div class="branch"><div class="cat">Blogs &amp; Meetups</div><div class="chips">
+        <a class="chip" href="https://www.meetup.com/topics/responsible-ai/" target="_blank">Meetup — responsible AI groups</a>
+      </div></div>
+      <div class="branch"><div class="cat">Conferences</div><div class="chips">
+        <a class="chip" href="https://facctconference.org" target="_blank">ACM FAccT</a>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="footprint-note">
+    <strong>Reading the footprint, not just the title:</strong> a title like "MLOps Engineer" is applied inconsistently across companies — the reliable signal is the trail. A GitHub contributor to <a class="chip" style="color:var(--charcoal); background:none; padding:0;" href="https://github.com/vllm-project/vllm" target="_blank">vLLM</a> or a <a class="chip" style="color:var(--charcoal); background:none; padding:0;" href="https://pytorch.org/foundation" target="_blank">PyTorch Foundation</a>-hosted project, a Kaggle top-100 finisher, or a named author on an arXiv paper — each is public proof of skill, independent of how any one employer labels the role.
+  </div>
+</main>
+
+<section class="cross">
+  <h2>Where this connects</h2>
+  <p>This mindmap is the quick-reference layer. For deep, role-family-specific playbooks — target companies by tier, outreach templates, conversion benchmarks, and interview calibration — go to the full sourcing framework. For the underlying job architecture, leveling, and interview design this sourcing plan supports, see the talent program playbook.</p>
+  <div class="refs">
+    <a href="sourcing-motion/">7-Step Sourcing Framework →</a>
+    <a href="aiml-talent-program-playbook.html">AI/ML Talent Program Playbook →</a>
+  </div>
+</section>
+
+<footer>
+  <span>Talent AI Lab — AI/ML Sourcing Mindmap</span>
+  <span>Built &amp; maintained independently</span>
+</footer>
+
+</body>
+</html>
